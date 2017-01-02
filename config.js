@@ -1,6 +1,6 @@
 var CONFIG = {
   // your website's title
-  document_title: "Jer - doc",
+  document_title: "魏娜",
 
   // index page
   index: "README.md",
