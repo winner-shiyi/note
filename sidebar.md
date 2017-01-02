@@ -4,10 +4,10 @@
 
 <!-- [ditto:searchbar] -->
 
-##css笔记
+##js笔记
 
-1. [字符串的扩展](#docs/es6_string)
-1. [正则的扩展](#docs/es6_regex)
+1. [变量](#docs/js_variable)
+1. [正则的扩展](#docs/es6_string)
 1. [数值的扩展](#docs/es6_number)
 1. [数组的扩展](#docs/es6_array)
 1. [函数的扩展](#docs/es6_function)
@@ -44,7 +44,7 @@
 1. [Module](#docs/es6_module)
 1. [Iterator、for...of](#docs/es6_Iterator_for_of)
 
-##js笔记
+##css笔记
 
 1. [字符串的扩展](#docs/es6_string)
 1. [正则的扩展](#docs/es6_regex)
