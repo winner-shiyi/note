@@ -117,6 +117,30 @@ window.onload=function(){
 <div id="box"></div>
 
 demo2:
-
+	<style>
+	#box{
+		width:200px;
+		height:200px;
+		border:1px solid red;
+	}
+	</style>
+	<script>
+	window.onload=function(){
+		var text=document.getElementById('text');
+		var btn=document.getElementById('btn');
+		var box=document.getElementById('box');
+		//因为一开始box的display:block 不是行间样式，通过style拿不到
+		btn.onclick=function(){
+			var val=text.value;
+			var newTxt='<p>'+val+'</p>';//最好用变量存一下，或者（）起来，不然+之间拼接运算符优先级
+			//console.log(box.innerHTML);
+			//box.innerHTML=box.innerHTML+newTxt;//插入的新内容在最后面
+			box.innerHTML=newTxt+box.innerHTML;//插入的新内容在最前面
+		}
+	}
+	</script>
+	<input type="text" id="text" value="">
+	<input type="button" id="btn" value="提交">
+	<div id="box"></div>
 
 

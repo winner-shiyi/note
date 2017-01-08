@@ -20,9 +20,11 @@
 		//因为一开始box的display:block 不是行间样式，通过style拿不到
 		btn.onclick=function(){
 			var val=text.value;
-			box.innerHTML=box.innerHTML+'<p>'+val+'</p>';
+			var newTxt='<p>'+val+'</p>';//最好用变量存一下，或者（）起来，不然+之间拼接运算符优先级
+			//console.log(box.innerHTML);
+			//box.innerHTML=box.innerHTML+newTxt;//插入的新内容在最后面
+			box.innerHTML=newTxt+box.innerHTML;//插入的新内容在最前面
 		}
-
 	}
 	</script>
 	<input type="text" id="text" value="">
