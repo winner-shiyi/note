@@ -82,6 +82,41 @@ console.log(str3+'str3');//得到结果是？ 1str3 变量+字符串
 		alert("n大于10");
 	}
 ```
+2017-01-08
+
+牢记，obj.style.xxx  是读和写行间样式
+
+由此引发另外一种思路：
+
+demo1：
+<style>
+#box{
+	width:100px;
+	height:100px;
+	border:1px solid red;
+}
+</style>
+<script>
+window.onload=function(){
+	var btn=document.getElementById('btn');
+	var box=document.getElementById('box');
+	//因为一开始box的display:block 不是行间样式，通过style拿不到
+	var on="block";
+	btn.onclick=function(){
+		if(on=="block"){
+			box.style.display="none";
+			on="none";//影响第二次点击
+		}else{
+			box.style.display="block";
+			on="block";//影响第三次点击
+		}
+	}
+}
+</script>
+<input type="button" id="btn" value="按钮">
+<div id="box"></div>
+
+demo2:
 
 
 
