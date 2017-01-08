@@ -40,7 +40,7 @@ href 链接的地址；src 图片的地址
 
 link.href 取到的是 绝对地址，pic.src 取到的是 绝对地址;切忌不要拿这属性取到的值来做判断
 
-pic.style.background=???
+pic.style.background=???  自己写demo证明，行间样式是 style="background:#000;"，获取到打印出来的是rgb(0,0,0)
 
 2017-01-05
 
