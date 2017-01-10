@@ -143,4 +143,11 @@ demo2:
 	<input type="button" id="btn" value="提交">
 	<div id="box"></div>
 
+2017-01-10:
+累加：
+n=n+1;  n+=1;  n++
+累减：
+n=n-1;  n-=1;  n--
 
+有 var aa = ["11","22","33"];
+console.dir(aa);用来打印一个集合
