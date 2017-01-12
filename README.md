@@ -151,3 +151,19 @@ n=n-1;  n-=1;  n--
 
 有 var aa = ["11","22","33"];
 console.dir(aa);用来打印一个集合
+
+2017-01-13:
+
+getElementsByTagName  前面的主语  可以是document  也可以是其他父级
+通过这个获取到的是 一个元素的集合，类似数组，但是不是数组，因为它只具有数组的length
+和下标获取，数组的其他方法它没有哦
+
+var lis=document.getElementsByTagName('li');
+lis[2].background="red";
+console.dir(lis); 这个打印有一个好处  在控制台直接可以看到其长度
+
+getElementsByClassName 前面的主语  可以是document  也可以是其他父级
+getElementsByClassName 在ie8以下不兼容？？？
+
+querySelector(css选择器)  前面的主语  可以是document  也可以是其他父级通过css选择器去获取一个元素，强调：只获取一个，如果有重复的，那它只取第一个
+
