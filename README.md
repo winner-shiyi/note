@@ -167,3 +167,8 @@ getElementsByClassName 在ie8以下不兼容？？？
 
 querySelector(css选择器)  前面的主语  可以是document  也可以是其他父级通过css选择器去获取一个元素，强调：只获取一个，如果有重复的，那它只取第一个
 
+2017-01-14:
+
+
+
+
