@@ -168,6 +168,10 @@ getElementsByClassName 在ie8以下不兼容？？？
 querySelector(css选择器)  前面的主语  可以是document  也可以是其他父级通过css选择器去获取一个元素，强调：只获取一个，如果有重复的，那它只取第一个
 
 2017-01-14:
+querySelectAll(css选择器)   前面的主语  可以是document  也可以是其他父级通过css选择器 
+通过css选择器获取到一组元素，它也是一个类数组,通过下标操作具体某一项
+var lis = document.querySelectorAll('#color ul li');
+lis[lis.length-1].style.background='red';
 
 
 
