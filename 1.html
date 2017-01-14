@@ -14,21 +14,30 @@
 	</style>
 	<script>
 	window.onload=function(){
-		var text=document.getElementById('text');
-		var btn=document.getElementById('btn');
-		var box=document.getElementById('box');
-		//因为一开始box的display:block 不是行间样式，通过style拿不到
-		btn.onclick=function(){
-			var val=text.value;
-			var newTxt='<p>'+val+'</p>';//最好用变量存一下，或者（）起来，不然+之间拼接运算符优先级
-			//console.log(box.innerHTML);
-			//box.innerHTML=box.innerHTML+newTxt;//插入的新内容在最后面
-			box.innerHTML=newTxt+box.innerHTML;//插入的新内容在最前面
-		}
+		var lis1=document.getElementsByTagName('li');
+		var lis2=document.querySelectorAll('li');
+		/*这两个相同点：都是获取到一组元素，都是类数组，都可以通过下标操作*/
+		/*这两个不同点：getElementsByTagName 是动态获取元素，元素增、删后会跟随变化，而querySelectorAll只获取第一次的一组元素，是静态获取*/
+
+		var elea=document.createElement("li");
+		document.getElementById('ul').appendChild(elea);
+		
+		console.dir(lis1);
+		console.dir(lis2);
+
+		//让所有li背景变成红色 
+		//lis1.style.background="red";这样会报错，原因：你有一个筐子装满了5个苹果，你想吃一个苹果，必须要一个一个拿，不可能抱着筐子吃苹果，连着筐子都吃了吧！
+		lis1[0].style.background="red";
+		lis1[1].style.background="red";
+		lis1[2].style.background="red";
+		lis1[3].style.background="red";
 	}
 	</script>
-	<input type="text" id="text" value="">
-	<input type="button" id="btn" value="提交">
-	<div id="box"></div>
+	<ul id="ul">
+		<li>red</li>
+		<li>white</li>
+		<li>blue</li>
+		<li>green</li>
+	</ul>
 </body>
 </html>

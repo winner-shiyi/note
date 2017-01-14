@@ -173,6 +173,37 @@ querySelectAll(css选择器)   前面的主语  可以是document  也可以是�
 var lis = document.querySelectorAll('#color ul li');
 lis[lis.length-1].style.background='red';
 
+2017-01-15:
+<script>
+window.onload=function(){
+	var lis1=document.getElementsByTagName('li');
+	var lis2=document.querySelectorAll('li');
+	/*这两个相同点：都是获取到一组元素，都是类数组，都可以通过下标操作*/
+	/*这两个不同点：getElementsByTagName 是动态获取元素，元素增、删后会跟随变化，而querySelectorAll只获取第一次的一组元素，是静态获取*/
+
+	var elea=document.createElement("li");
+	document.getElementById('ul').appendChild(elea);
+	
+	console.dir(lis1);
+	console.dir(lis2);
+
+	//让所有li背景变成红色 
+	//lis1.style.background="red";这样会报错，原因：你有一个筐子装满了5个苹果，你想吃一个苹果，必须要一个一个拿，不可能抱着筐子吃苹果，连着筐子都吃了吧！
+	lis1[0].style.background="red";
+	lis1[1].style.background="red";
+	lis1[2].style.background="red";
+	lis1[3].style.background="red";
+}
+</script>
+<ul id="ul">
+	<li>red</li>
+	<li>white</li>
+	<li>blue</li>
+	<li>green</li>
+</ul>
+
+2017-01-16:
+
 
 
 
