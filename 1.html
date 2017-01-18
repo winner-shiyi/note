@@ -27,13 +27,14 @@
 
 		//让所有li背景变成红色 
 		//lis1.style.background="red";这样会报错，原因：你有一个筐子装满了5个苹果，你想吃一个苹果，必须要一个一个拿，不可能抱着筐子吃苹果，连着筐子都吃了吧！
-		/*lis1[0].style.background="red";
-		lis1[1].style.background="red";
-		lis1[2].style.background="red";
-		lis1[3].style.background="red";*/
+
 		for(var i = 0;i<lis1.length;i++){
-			lis1[i].style.background = "red";
+			lis1[i].onclick = function(){
+				console.log(i);//5
+				lis1[i].style.background = "red";//报错
+			};	
 		}
+		alert(i);//5
 	}
 	</script>
 	<ul id="ul">

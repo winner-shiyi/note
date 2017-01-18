@@ -285,6 +285,33 @@ alert(i);  //4
 总结：得到0，1,2 即使改成前加加++i ，得到的结果也是一样的，说明上面for循环步骤的原理也是一样适用的
 
 2017-01-19:
+需求：点击某个li，让点击的那个li背景色变为红色
+
+循环的速度是非常快的，我们手动点击的时候，for循环已经走完了，那这个时候i的值是5
+循环里添加的点击事件，点击事件里的i的值是循环结束后的i的值，而不想象中以为的对应循环的值0,1,2,3,4
+
+window.onload=function(){
+	var lis1=document.getElementsByTagName('li');
+	var lis2=document.querySelectorAll('li');
+
+	for(var i = 0;i<lis1.length;i++){
+		lis1[i].onclick = function(){
+			console.log(i);//5
+			lis1[i].style.background = "red";//报错
+		};	
+	}
+	alert(i);//5
+}
+<ul id="ul">
+	<li>red</li>
+	<li>white</li>
+	<li>blue</li>
+	<li>green</li>
+	<li>black</li>
+</ul>
+总结：
+循环走的是非常快的，按照上面的for循环解析步骤原理来论证，此时i赋值为5
+所以当点击的时候只执行的是 lis1[5].style.background = "red";并不存在lis1[5]，因此报错
 
 
 
