@@ -313,6 +313,28 @@ window.onload=function(){
 循环走的是非常快的，按照上面的for循环解析步骤原理来论证，此时i赋值为5
 所以当点击的时候只执行的是 lis1[5].style.background = "red";并不存在lis1[5]，因此报错
 
+2017-01-20:
+this 关键字，不能当变量名
+只能读，不能写，意味着：this的值只能用，是不能修改
+
+alert(this);//window
+alert(this==window);//true
+
+function fn(){
+	alert(this);//window
+}
+document.onclick=fn;//document
+
+btn.onclick=fn;//input.btn
+
+1、this在函数外用：
+	this是指向window
+2、在函数内使用
+	①函数是直接被调用的
+		this指向window
+	②被事件所调用，并且是以赋值的形式出现
+		this指向是，谁调用了函数，那this就指向谁
+
 
 
 
