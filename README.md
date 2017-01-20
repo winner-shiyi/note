@@ -336,6 +336,27 @@ btn.onclick=fn;//input.btn
 		this指向是，谁调用了函数，那this就指向谁
 
 
+2017-01-21:
+window.onload=function(){
+	var lis1=document.getElementsByTagName('li');
+	var lis2=document.querySelectorAll('li');
+
+	for(var i = 0;i<lis1.length;i++){
+		lis1[i].onclick = function(){
+			//在循环的时候，想给每个元素都添加点击事件，想要找到点击事件中的具体那个对象，不能下标i的值作为下标去取，要用this，this指的就是点击的那个对象
+			//lis1[i].style.background = "red";//报错
+			this.style.background = "red";
+		};	
+	}
+	alert(i);//5
+}
+<ul id="ul">
+	<li>red</li>
+	<li>white</li>
+	<li>blue</li>
+	<li>green</li>
+	<li>black</li>
+</ul>
 
 
 
