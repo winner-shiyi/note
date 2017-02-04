@@ -4,7 +4,7 @@
 
 [![cover](images/cover3.jpg)](images/cover3.jpg)
 
-2017-01-02
+2017-01-02：(海棠学院的原生js视频)
 
 hublider 编辑器中打开页面会自己起一个静态服务器？？  emmet插件 补全
 
@@ -528,6 +528,17 @@ window.onload=function(){
 	<div>内容2</div>
 	<div>内容3</div>
 </body>
+
+2017-02-05:(李炎恢的原生js视频)
+
+流程控制语句中的if：
+var box=50;
+//if使用在单行语句里的表达式如果返回的false，只会不执行其后面的一条语句，其后的第二条语句仍然会执行。
+//所以最好使用复合语句if（表达式）{}
+if(box>50)
+	alert(box);
+	alert('不管你的if是true还是false，都会执行该语句');
+</script>
 
 
 

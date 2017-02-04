@@ -14,51 +14,12 @@
 	}
 	</style>
 	<script>
-	/*
-	*需求：点击按钮显示对应的div，让其他的按钮背景色去掉，让其他div都隐藏
-	*
-	*
-	*分析：
-	*1、获取到所有的按钮以及div
-	*2、给每一个按钮添加点击事件
-	*    3.把所有按钮的背景色去掉
-	*    4.把所有div都隐藏起来
-	*    1.给当前点击的按钮添加背景色
-	*	 2.让当前点击按钮对应的div，显示出来
-	*/
-	window.onload=function(){
-		var inputs=document.querySelectorAll('input');
-		var divs=document.querySelectorAll('div');
-
-
-		//给每个按钮添加点击事件
-		for(var i=0;i<inputs.length;i++){
-
-			//每个按钮的下标值恰好也对应循环中的i值，所以给每个按钮添加一个自定义属性index并且等于i
-			//这里涉及到事件触发和i赋值，一定要放在点击事件外面
-			inputs[i].index=i;
-
-			inputs[i].onclick=function(){
-				//inputs[i].index=i;不能放在click事件里面，因为循环是非常快的，点击事件发生的这时候的i是等于3
-
-				//把所有按钮的背景色去掉 把所有div都隐藏起来
-				//操作一组元素，原生js要使用for循环
-				for(var i=0;i<inputs.length;i++){
-					//这里的嵌套循环变量i重名是没关系的，是因为这里的变量i是只在这个点击事件内的作用域内，不受外面影响
-					inputs[i].style.background='';
-					divs[i].style.display='none';
-				}
-
-				//给当前点击的按钮添加背景色
-				this.style.background="yellow";
-
-				//让当前点击按钮对应的div，显示出来
-				divs[this.index].style.display='block';
-
-			}
-		}
-		
-	}
+	var box=50;
+	//if使用在单行语句里的表达式如果返回的false，只会不执行其后面的一条语句，其后的第二条语句仍然会执行。
+	//所以最好使用复合语句if（表达式）{}
+	if(box>50)
+		alert(box);
+		alert('不管你的if是true还是false，都会执行该语句');
 	</script>
 	<input type="button" id="" value="选项1" style="background:yellow;">
 	<input type="button" id="" value="选项2">
