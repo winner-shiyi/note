@@ -314,15 +314,21 @@ window.onload=function(){
 所以当点击的时候只执行的是 lis1[5].style.background = "red";并不存在lis1[5]，因此报错
 
 2017-01-20:
+指的是当前对象
 this 关键字，不能当变量名
 只能读，不能写，意味着：this的值只能用，是不能修改
 
 alert(this);//window
 alert(this==window);//true
 
+
 function fn(){
-	alert(this);//window
+	alert(this);
 }
+//这种调用函数等于 window.fn();window可以省略
+fn();//window  
+
+
 document.onclick=fn;//document
 
 btn.onclick=fn;//input.btn
@@ -345,7 +351,8 @@ window.onload=function(){
 		lis1[i].onclick = function(){
 			//在循环的时候，想给每个元素都添加点击事件，想要找到点击事件中的具体那个对象，不能下标i的值作为下标去取，要用this，this指的就是点击的那个对象
 			//lis1[i].style.background = "red";//报错
-			this.style.background = "red";
+			
+			this.style.background = "red";//正确写法
 		};	
 	}
 	alert(i);//5
@@ -357,6 +364,172 @@ window.onload=function(){
 	<li>green</li>
 	<li>black</li>
 </ul>
+
+2017-02-04:
+属性：元素身上所具有的一些特征
+
+1.系统自带的属性 （type、id、style、value、src）
+2.自己添加的属性 
+
+<script>
+window.onload=function(){
+	var btn=document.getElementById('btn');
+
+	console.log(btn.type); //button
+	console.log(btn.id); //btn
+
+	btn.winner = '名字';//添加自定义属性
+	//验证属性是否添加成功，操作属性的两种方法
+	console.log(btn.winner);//名字
+	console.log(btn['winner']);//名字
+}
+</script>
+<input type="button" id="btn" value="按钮" style="width:100px;height:50px;background:#f00;">
+
+选项卡的写法1：
+
+<body>
+	<style>
+	div{
+		width:200px;
+		height:200px;
+		border:1px solid red;
+		display:none;
+	}
+	</style>
+	<script>
+	/*
+	*需求：点击按钮显示对应的div，让其他的按钮背景色去掉，让其他div都隐藏
+	*
+	*关键点：如果获取上一个点击的按钮，这个是变化的
+	*
+	*分析：
+	*1、获取到所有的按钮以及div
+	*2、给每一个按钮添加点击事件
+	*    3.把上一个点击的按钮的背景色去掉
+	*    4.把上一个点击的按钮对应的div，隐藏起来
+	*    1.给当前点击的按钮添加背景色
+	*	 2.让当前点击按钮对应的div，显示出来
+	*/
+	window.onload=function(){
+		var inputs=document.querySelectorAll('input');
+		var divs=document.querySelectorAll('div');
+		var last=inputs[0];//这个变量保存的是 上一个点击的对象，在这里默认为第0个
+
+		/*
+		* 从下面打印的内总结：
+		* 每一个按钮都对应一个div，他们的下标值是相同的
+		* 如果取到一个下标值，通过下标值就能找到对应的按钮与div
+		*/
+		console.dir(inputs);
+		console.dir(divs);
+
+		//给每个按钮添加点击事件
+		for(var i=0;i<inputs.length;i++){
+
+			//每个按钮的下标值恰好也对应循环中的i值，所以给每个按钮添加一个自定义属性index并且等于i
+			//这里涉及到事件触发和i赋值，一定要放在点击事件外面
+			inputs[i].index=i;
+
+			inputs[i].onclick=function(){
+				//inputs[i].index=i;不能放在click事件里面，因为循环是非常快的，点击事件发生的这时候的i是等于3
+
+				//把上一个点击的按钮的背景色去掉
+				last.style.background='';
+
+				//把上一个点击的按钮对应的div，隐藏起来
+				divs[last.index].style.display='none';
+
+				//给当前点击的按钮添加背景色
+				this.style.background="yellow";
+
+				//让当前点击按钮对应的div，显示出来
+				divs[this.index].style.display='block';
+
+				//当前对象this相对于下一次点击来说，它就是上一次点击对象
+				//把当前对象 变成 上一个点击的对象（一定要放在所有代码之后）
+				last=this;
+
+			}
+
+		}
+		
+	}
+	</script>
+	<input type="button" id="" value="选项1" style="background:yellow;">
+	<input type="button" id="" value="选项2">
+	<input type="button" id="" value="选项3">
+	<div style="display:block;">内容1</div>
+	<div>内容2</div>
+	<div>内容3</div>
+</body>
+
+选项卡的写法2：
+<body>
+	<style>
+	div{
+		width:200px;
+		height:200px;
+		border:1px solid red;
+		display:none;
+	}
+	</style>
+	<script>
+	/*
+	*需求：点击按钮显示对应的div，让其他的按钮背景色去掉，让其他div都隐藏
+	*
+	*
+	*分析：
+	*1、获取到所有的按钮以及div
+	*2、给每一个按钮添加点击事件
+	*    3.把所有按钮的背景色去掉
+	*    4.把所有div都隐藏起来
+	*    1.给当前点击的按钮添加背景色
+	*	 2.让当前点击按钮对应的div，显示出来
+	*/
+	window.onload=function(){
+		var inputs=document.querySelectorAll('input');
+		var divs=document.querySelectorAll('div');
+
+
+		//给每个按钮添加点击事件
+		for(var i=0;i<inputs.length;i++){
+
+			//每个按钮的下标值恰好也对应循环中的i值，所以给每个按钮添加一个自定义属性index并且等于i
+			//这里涉及到事件触发和i赋值，一定要放在点击事件外面
+			inputs[i].index=i;
+
+			inputs[i].onclick=function(){
+				//inputs[i].index=i;不能放在click事件里面，因为循环是非常快的，点击事件发生的这时候的i是等于3
+
+				//把所有按钮的背景色去掉 把所有div都隐藏起来
+				//操作一组元素，原生js要使用for循环
+				for(var i=0;i<inputs.length;i++){
+					//这里的嵌套循环变量i重名是没关系的，是因为这里的变量i是只在这个点击事件内的作用域内，不受外面影响
+					inputs[i].style.background='';
+					divs[i].style.display='none';
+				}
+
+				//给当前点击的按钮添加背景色
+				this.style.background="yellow";
+
+				//让当前点击按钮对应的div，显示出来
+				divs[this.index].style.display='block';
+
+			}
+		}
+		
+	}
+	</script>
+	<input type="button" id="" value="选项1" style="background:yellow;">
+	<input type="button" id="" value="选项2">
+	<input type="button" id="" value="选项3">
+	<div style="display:block;">内容1</div>
+	<div>内容2</div>
+	<div>内容3</div>
+</body>
+
+
 
 
 
