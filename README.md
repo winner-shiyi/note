@@ -651,6 +651,41 @@ function box4(num){
 }
 alert(box4(6));//100 
 
+arguments数组对象：js函数不介意传递进来多少参数，也不会因为参数不统一而报错，都可以通过arguments对象来接收
+//函数参数在定义到时候 和 调用的时候 不统一，并不会报错
+function box1(){
+	return arguments[0]+'|'+arguments[1];
+}
+alert(box1('weina',28));//weina|28
+
+arguments是一个数组对象,动态传参，其的具体作用和实例：
+通过arguments对象可以实现一个功能：动态计算。比如要实现一个加法运算，把传进来的数字累加，但是传进来的数字又是不确定有几个。
+function box1(){
+	var sum=0;
+	if(arguments.length==0) return sum;//如果没有传参数的时候，返回0，退出
+	for (var i = 0; i < arguments.length; i++) {
+		sum+=arguments[i];
+	};
+	return sum;
+}
+alert(box1());//0
+alert(box1(1,2));//3
+alert(box1(1,2,3,4));//10
+
+js中的function函数 没有 没有 没有 像其他高级语言的函数重载功能：
+//重载功能，就是根据参数，选择相同函数名而参数不同的函数
+//重载通俗的说就是：实际调用函数的时候，会根据具体参数个数来选择相同函数名的函数，这里就应该选择上面的函数
+//函数同名也不报错，因为第二个会覆盖第一个
+function box(num,a) {
+	return num+100;
+}
+function box(num) {
+	return num+200;
+}
+alert(box(50,1));//250 
+
+
+
 
 
 
