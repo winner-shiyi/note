@@ -14,12 +14,27 @@
 	}
 	</style>
 	<script>
-	var box=50;
-	//if使用在单行语句里的表达式如果返回的false，只会不执行其后面的一条语句，其后的第二条语句仍然会执行。
-	//所以最好使用复合语句if（表达式）{}
-	if(box>50)
-		alert(box);
-		alert('不管你的if是true还是false，都会执行该语句');
+
+	var box={
+		'name':'weina',
+		'age':28,
+		'height':165
+	};
+	var n=box.name;
+	var a=box.age;
+	var h=box.height;
+	alert(n+a+h);
+	
+	//with语句的作用是将代码的作用域设置到一个特定的对象中，所以可以省略box.
+	with(box){//存放对象的名称
+		var n=name;//这里的name 相当于 box.name
+		var a=age;
+		var h=height;
+	}
+	alert(n+a+h);
+
+
+	
 	</script>
 	<input type="button" id="" value="选项1" style="background:yellow;">
 	<input type="button" id="" value="选项2">

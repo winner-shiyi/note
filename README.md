@@ -541,6 +541,90 @@ if(box>50)
 </script>
 
 
+2017-02-06:
+
+do{}while()循环语句：
+
+//先运行在判断的循环体；先弹出1，累加，在判断，在弹出2，在累加，在判断……，弹出5，累加为6，判断不符合终止
+var box=1;
+do{
+	alert(box);
+	box++;
+}while(box<=5);
+//如果条件一开始不满的话，至少会执行一次。会谈出一次10
+var bb=10;
+do{
+	alert(bb);
+	bb++;
+}while(bb<=5);
+//切忌，循环体的判断要想好，不然可能会进入死循环。如下弹出10，11，12……
+var aa=10;
+do{
+	alert(aa);
+	aa++;
+}while(aa>5);
+
+while(){}循环语句和for循环语句对比：
+
+//while循环和for循环，这样弹出的结果是一样的；
+//不同之处在for循环可以在循环执行之前初始变量，for循环的执行步骤为：初始声明变量，判断条件为true，alert(),最后在累加
+var box=1;
+while(box<=5){
+	alert(box);
+	box++;
+}
+
+for(var box=1;box<=5;box++){
+	alert(box);
+}
+
+for(var x in obj){}语句用来枚举对象的属性：
+var box={
+	'name':'weina',
+	'age':28,
+	'height':165
+};
+for(var x in box){
+	alert(x);//弹出box对象的所有属性名称：name，age，height
+}
+
+break退出循环语句和continue退出当前循环语句的对比：
+
+//break 是退出整个外面的循环，当满足条件的时候，不执行条件判断下面语句
+for (var i = 0; i < 10; i++) {
+	if(i==5) break;
+	document.write(i+'<br/>');//0 1 2 3 4
+};
+
+//continue 是退出当前循环，，当满足条件的时候，不执行判断后面的语句，但不影响外面的继续执行循环
+for (var b = 0; b < 10; b++) {
+	if(b==5) continue;
+	document.write(b+'<br/>');//0 1 2 3 4 6 7 8 9
+};
+
+with(){}语句，适用于对象：
+//with语句的作用是将代码的作用域设置到一个特定的对象中，所以可以省略box.
+var box={
+	'name':'weina',
+	'age':28,
+	'height':165
+};
+var n=box.name;
+var a=box.age;
+var h=box.height;
+alert(n+a+h);
+//使用with语句改写如下
+with(box){//存放对象的名称
+	var n=name;//这里的name 相当于 box.name
+	var a=age;
+	var h=height;
+}
+alert(n+a+h);
+
+
+
+
+
 
 
 
