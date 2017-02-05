@@ -621,7 +621,35 @@ with(box){//存放对象的名称
 }
 alert(n+a+h);
 
+function函数的return返回值：
+//弹出"我只有被调用才可以执行"  
+//return的作用是让box() = "我只有被调用才可以执行"
+function box(){
+	return"我只有被调用才可以执行";
+}
+alert(box());//或者 var str=box();把返回值保存成一个变量也是ok，alert(str);
 
+//弹出"我只有被调用才可以执行"  继续弹出"undefined"
+//因为这里没有return返回值 所以得到undefined
+function box2(){
+	alert("我只有被调用才可以执行");
+}
+alert(box2());
+
+//return语句还有一个功能就是退出当前函数，注意和break的区别。ps：break用在循环和switch语句里
+//当函数遇到第一个return的时候，就会终止，不会继续往下执行
+function box3(){
+	return 10;
+	return 100;
+}
+alert(box3());//10  
+
+//遇到传参数的函数，有return值时候
+function box4(num){
+	if (num<5) return num;
+	return 100;
+}
+alert(box4(6));//100 
 
 
 
