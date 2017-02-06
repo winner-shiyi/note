@@ -685,9 +685,103 @@ function box(num) {
 alert(box(50,1));//250 
 
 
+对象，创建对象的方法，实际常用字面量创建对象来传参：
+//创建一个对象的方式：new一个Object，也可以直接Object，字面量方式
+function objrun(){
+	return '123';
+}
+var box = new Object();
+box.name='weina';
+box.age=28;
+box.run=objrun;
+
+alert(box.run);//function 函数体
+alert(box.run());//123
+
+box.run1=objrun();
+alert(box.run1);//123
+
+var box1={
+	name:'weina',
+	run:function(){
+		return 123;
+	}
+}
+alert(box1.run());//123
+
+//使用delete关键字删除对象的属性
+var box2={
+	name:'weina',
+	age:28,
+	run:function(){
+		return 123;
+	}
+}
+alert(box2.name);//weina
+delete box2.name;
+alert(box2.name);//undefined
+
+//当函数的参数有很多个的时候，使用字面量创建对象来传参的好处
+function box(name,age,height,address){
+	alert(name);
+	alert(age);
+	alert(height);
+}
+box('weina',28,165,'建阳');
+
+//下面就是使用字面量创建对象传参
+var obj ={
+	name:'weina',
+	age:28,
+	height:165,
+	address:'建阳'
+}
+function box1(obj){
+	alert(obj.name);
+	alert(obj.age);
+	alert(obj.height);
+}
+box1(obj);
+
+//如果实际传参中没有或者确实某个参数
+var obj ={
+	name:'weina',
+	age:28,
+	height:165,
+	address:'建阳'
+}
+function box1(obj){
+	alert(obj.name);
+	alert(obj.love);//实际传的参数中没有love属性，则会打印出undefined
+	alert(obj.age);
+	alert(obj.height);
+}
+box1(obj);
+
+//避免出现undefined的方法就是 强大的判断
+var obj ={
+	name:'weina',
+	age:28,
+	height:165,
+	address:'建阳'
+}
+function box1(obj){
+	if(obj.name!=undefined) alert(obj.name);
+	if(obj.love!=undefined) alert(obj.love);
+	if(obj.age!=undefined) alert(obj.age);
+	if(obj.height!=undefined) alert(obj.height);
+}
+//box1(obj);
+//进一步改写：把很多的参数，当做一个匿名对象传入
+box1({
+	name:'weina',
+	age:28,
+	height:165,
+	address:'建阳'
+})
 
 数组对象：
-
+//创建一个数组对象的方式：new一个Array，也可以直接Array，字面量方式
 
 
 
