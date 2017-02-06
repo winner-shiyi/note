@@ -782,6 +782,44 @@ box1({
 
 数组对象：
 //创建一个数组对象的方式：new一个Array，也可以直接Array，字面量方式
+var box=new Array();
+alert(box);//空
+alert(typeof box);//object
+
+var box=new Array('weina',28,165);
+alert(box);//weina,28,165
+alert(box[0]);//weina
+
+//对比下面两种：
+var box=new Array(5);//创建数组包含5个元素，必须是数字，必须只能有1个参数
+alert(box);//,,,,,   
+
+var box1=new Array(5,2);
+alert(box1);// 5,2
+
+//字面量的方式创建数组
+//数组中额外的逗号，在ie浏览器中获取到并且计算到length中，产生错误
+var box=[1,2,3,];//这里逗号没有删掉
+alert(box);//在高级浏览器中是 1,2,3 IE中1,2,3，
+alert(box.length);//高级浏览器中是3，IE中是4
+
+
+//当数组下标是字符串的时候需要注意
+var box=[];
+box['name']='weina';
+box['age']=28;
+alert(box);//空 无法打印出来数组，不会提现在数组上
+alert(box.name);//weina
+//当数组下标是 数字的索引下标的时候，可以打印出来，体现在数组上
+var box1=[];
+box1[0]='weina';
+box1[1]=28;
+alert(box1);//weina,28
+
+//通过length可以获取或者设置数组中最后一个元素
+var box=['weina',28,'建阳']；
+box[box.length]='福建'；
+alert(box);
 
 
 
