@@ -82,7 +82,7 @@ console.log(str3+'str3');//得到结果是？ 1str3 变量+字符串
 		alert("n大于10");
 	}
 ```
-2017-01-08
+2017-01-08:
 
 牢记，obj.style.xxx  是读和写行间样式
 
@@ -820,6 +820,90 @@ alert(box1);//weina,28
 var box=['weina',28,'建阳']；
 box[box.length]='福建'；
 alert(box);
+
+2017-02-07:
+对象中的方法：对象或者数组都具有的方法
+var box =['weina',28,'建阳',new Date()];
+console.log(box);
+console.log(box.toString());
+console.log(box.valueOf());
+console.log(box.toLocaleString());
+
+//join()方法后得到的是字符串，并不影响原来数组
+console.log(box.join('|'));
+console.log(typeof box.join('|'));
+console.log(typeof box);
+
+//栈方法 后进先出的原则  push(),pop()
+//push()可以接收任意数量的参数，逐个添加到数组的末尾，返回的是修改后数组的长度
+//pop()移除数组中的最末尾元素，返回的是被移除的元素
+var box =['weina',28,'建阳'];
+console.log(box.push('福建'));
+console.log(box);
+console.log(box.pop());
+
+//队列方法 先进先出 shift()移除数组中的第一个元素，返回的是这个被移除的元素（也就是开头的元素）
+//unshift()在ie浏览器中返回值有问题，很少使用
+var box =['weina',28,'建阳'];
+console.log(box.push('福建'));
+console.log(box.shift());
+console.log(box);
+
+//数组中重新排序的方法 reverse()逆向排序,sort()从小到大排序
+var box =[1,2,3,4,5];
+console.log(box.reverse());//5,4,3,2,2
+console.log(box);//5,4,3,2,2 原数组也逆序了，对其引用进行操作
+
+//使用sort()方法注意点：因为数字排序和数字字符串排序的算法是一样的，为了修改这个问题，给sort(参数)方法传递一个函数参数
+
+function compare (value1,value2) {
+	if (value1<value2) {
+		return -1;
+	}else if(value1>value2){
+		return 1;
+	}else{
+		return 0;
+	}	
+}
+var box =[0,1,5,10,15];
+var box1 =['0','1','5','10','15'];
+var box2=[0,6,5,10,8];
+console.log(box.sort());//[0, 1, 10, 15, 5]排序错误了，等同于数字字符串的码表排序
+console.log(box1.sort());//["0", "1", "10", "15", "5"]
+//给sort()传递一个参数
+console.log(box.sort(compare));//[0, 1, 5, 10, 15]
+console.log(box1.sort(compare));//["0", "1", "10", "15", "5"]
+//如果需要逆序排列，因为此时的sort已经修改了原box数组
+console.log(box.reverse());//[15, 10, 5, 1, 0]
+console.log(box2.reverse());//[8, 10, 5, 6, 0]直接这样排序是按照码表逆向排序，不正确的
+
+//concat()创建了一个新数组，并不影响原来的数组
+var box =['weina',28,'建阳'];
+var box2 =box.concat('计算机');
+console.log(box2);//["weina", 28, "建阳", "计算机"]
+console.log(box);//['weina',28,'建阳'];
+
+//slice()基于当前数组，可以获取指定区域的元素并创建成为一个新数组,不影响原数组
+var box =['weina',28,'建阳','计算机'];
+var box2=box.slice(1,3);//从第1个位置开始取到第3个位置前的元素，仍然是数组
+console.log(box2);//[28, "建阳"]
+console.log(box);//['weina',28,'建阳','计算机']
+
+
+//splice()主要用途是像数组的中部插入元素，影响原数组
+//删除功能
+var box =['weina',28,'建阳','计算机'];
+var box2=box.splice(1,3);//这里表示从第1个开始，取3个元素,创建成一个新数组，但是会影响原来数组
+console.log(box2);// [28, "建阳", "计算机"]
+console.log(box);//["weina"]
+//插入功能
+var box =['weina',28,'建阳','计算机'];
+var bb = ['dd',26,'江西'];
+var box2=box.splice(1,0,'福建');//表示从第1个元素开始，不删除元素，直接添加'福建'
+console.log(box2);//[] 返回为空
+console.log(box);//["weina", "福建", 28, "建阳", "计算机"]
+var box3=bb.splice(1,1,'福建');//表示从第1个元素开始，删除1个元素，在添加'福建'
+console.log(bb);//["dd", "福建", "江西"]
 
 
 
