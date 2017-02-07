@@ -905,6 +905,15 @@ console.log(box);//["weina", "福建", 28, "建阳", "计算机"]
 var box3=bb.splice(1,1,'福建');//表示从第1个元素开始，删除1个元素，在添加'福建'
 console.log(bb);//["dd", "福建", "江西"]
 
+时间与日期对象：Date()类型
+var  box=new Date('January 32 2017');//当传入的参数如期是多出来的（错误的时候），在不同浏览器中将会返回不同的时间
+console.log(box);//谷歌是无效日期，IE是2月1号，火狐也是2月1号，opera浏览器是1月30
+
+//UTC()协调世界统一时间
+console.log(Date.UTC(2017,2,24));//返回毫秒数量
+var box = new Date(Date.UTC(2017,2));
+console.log(box);//Wed Mar 01 2017 08:00:00 GMT+0800 (中国标准时间),月份变成3月份，时间要加上个8小时，东八区
+console.log(new Date(2017,2));//Wed Mar 01 2017 00:00:00 GMT+0800 (中国标准时间)
 
 
 
