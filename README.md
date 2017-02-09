@@ -917,6 +917,100 @@ console.log(new Date(2017,2));//Wed Mar 01 2017 00:00:00 GMT+0800 (中国标准�
 
 
 
+var pat=/g.gle/;//.点符号匹配任意字符，除了换行符
+var str='gogle';
+alert(pat.test(str));//true
+
+var pat=/ga*gle/;//*符号表示匹配0个a，或者1个a，或者多个a
+var str='gaagle';
+alert(pat.test(str));//true
+
+var pat=/ga+gle/;//+符号表示匹配1个a，或者多个a
+var str='gaaagle';
+alert(pat.test(str));//true
+
+var pat=/ga?gle/;//？符号表示匹配1个a，或者0个a
+var str='gaagle';
+alert(pat.test(str));//false
+
+var pat=/ga.?gle/;//.？符号表示匹配1个或者0个任意字符
+var str='gaagle';
+alert(pat.test(str));//true
+
+var pat=/go{2,4}gle/;//o{2,4}表示匹配o2-4次，包含2和4
+var str='goooogle';
+alert(pat.test(str));//true
+
+var pat=/gogle{2,4}/;//e{2,4}，并没有使用$限定结尾
+var str='gogleeeeeeeeee';
+alert(pat.test(str));//true
+
+var pat=/go{3}gle/;//o{3}表示匹配o3次，只能是3次
+var str='gooogle';
+alert(pat.test(str));//true
+
+var pat=/go{3,}gle/;//o{3,}表示匹配o3次,或者3次以上
+var str='goooooogle';
+alert(pat.test(str));//true
+
+var pat=/oogle/;
+var pat1=/[a-z]oogle/;//[a-z]表示26个小写字母都匹配，区分大小写
+var str='gooooogle';
+alert(pat.test(str));//true 匹配到后面oogle，因为没有前导限定
+alert(pat1.test(str));//true
+
+var pat1=/[a-zA-Z0-9]oogle/;//[a-zA-Z0-9]表示26个小写字母,大写字母，数字都匹配
+var str='gooooogle';
+alert(pat1.test(str));//true
+
+var pat1=/[^a-zA-Z0-9]oogle/;//[^a-zA-Z0-9]表示非 0-9,大小写字母的任意字符
+var str='-oogle';
+alert(pat1.test(str));//true
+
+var pat1=/^[0-9]oogle/;//^符号放在/后面，不是[]里面表示前导限定0-9开始
+var str='9oogle';
+alert(pat1.test(str));//true
+
+var pat1=/oogle[0-9]$/;//$符号结尾限定[0-9]
+var str='oogle9';
+alert(pat1.test(str));//true
+
+var pat1=/^[0-9]+oogle/;//^[0-9]+表示前导限定，1个或者多个0-9开始
+var str='9999oogle';
+alert(pat1.test(str));//true
+
+var pat1=/[a-zA-Z0-9_]oogle/;//等同于 /\woogle/, \w 匹配字母数字和_,\W表示完全相反,等同于[^a-zA-Z0-9_]
+var str='_oogle';
+alert(pat1.test(str));//true
+
+var pat1=/\doogle/;//\d匹配[0-9],\D匹配[^0-9]
+var str='9oogle';
+alert(pat1.test(str));//true
+
+var pat1=/goo\sgle/;//\s匹配空格，可以直接使用空格，也可以\s
+var str='goo gle';
+alert(pat1.test(str));//true
+
+var pat1=/google\b/;//\b表示匹配是否到达边界
+var str1='googlee';
+var str2='google';
+alert(pat1.test(str1));//false
+alert(pat1.test(str2));//true
+
+var pat1=/google|baidu|bing/;//|符号表示或者
+var str1='this is baidu';
+var str2='soso';
+alert(pat1.test(str1));//true
+alert(pat1.test(str2));//false
+
+var pat=/gogle{2,4}$/;//匹配e{2,4}次
+var pat1=/(gogle){2,4}/;//()分组符号，可以看成是一个字符，表示gogle2-4次
+var str='gogleeee';
+var str1='goglegogle';
+alert(pat.test(str));//true
+alert(pat1.test(str1));//true
+
+
 
 
 
