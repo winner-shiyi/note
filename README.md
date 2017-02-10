@@ -905,6 +905,8 @@ console.log(box);//["weina", "福建", 28, "建阳", "计算机"]
 var box3=bb.splice(1,1,'福建');//表示从第1个元素开始，删除1个元素，在添加'福建'
 console.log(bb);//["dd", "福建", "江西"]
 
+2017-02-08:
+
 时间与日期对象：Date()类型
 var  box=new Date('January 32 2017');//当传入的参数如期是多出来的（错误的时候），在不同浏览器中将会返回不同的时间
 console.log(box);//谷歌是无效日期，IE是2月1号，火狐也是2月1号，opera浏览器是1月30
@@ -916,99 +918,185 @@ console.log(box);//Wed Mar 01 2017 08:00:00 GMT+0800 (中国标准时间),月份
 console.log(new Date(2017,2));//Wed Mar 01 2017 00:00:00 GMT+0800 (中国标准时间)
 
 
+时间与日期对象 的相关方法：
 
-var pat=/g.gle/;//.点符号匹配任意字符，除了换行符
-var str='gogle';
-alert(pat.test(str));//true
+对象通用方法：
+var box = new Date(2017,10,15,17,22,45);
+alert(box.toString());
+alert(box.valueOf());//返回的是毫秒数
+alert(box.toLocaleString());
+组件方法：（获取单独想要的具体时间）
+	var box = new Date(2017,10,15,17,22,45);
+	alert(box.setTime('2018'));//设置毫秒数
+	box.getYear();//方法是废弃的方法
+	
+	getMonth();//月份要加1
+	var box = new Date(2017,10,15,17,22,45);
+	console.log(box.getMonth());//10
+	var box1 = new Date();//获取到：当前日期是2017、02、09
+	console.log(box1.getMonth());//1，，，比实际的 月份少1
+	
+	getHours()和getUTCHours() 有8个小时的时差,东八区
+	var box1 = new Date();//获取到：当前日期是2017-02-09-15:28
+	console.log(box1.getHours());//15
+	console.log(box1.getUTCHours());//7
 
-var pat=/ga*gle/;//*符号表示匹配0个a，或者1个a，或者多个a
-var str='gaagle';
-alert(pat.test(str));//true
+	//想在页面上 显示 年月日,时分秒
+	var box1 = new Date();//获取到：当前日期是2017-1-9 15:48:55
+	//少一个关于获取 星期几的 封装函数???
+	var day = box1.getDay();
+	console.log(box1.getFullYear()+'-'+box1.getMonth()+'-'+box1.getDate()+' '+box1.getHours()+':'+box1.getMinutes()+':'+box1.getSeconds());//2017-1-9 15:48:55
 
-var pat=/ga+gle/;//+符号表示匹配1个a，或者多个a
-var str='gaaagle';
-alert(pat.test(str));//true
+2017-02-09:
+正则表达式:
+	//模式修饰符:i 忽略大小写,g 全局匹配,m 多行匹配
+	//正则对象 RegExp包含两个方法：test(),exec()
+	
+	var pattern = new RegExp('box','i');
+	var pattern1 = /xox/i;
+	var str = 'this is a Box';
+	console.log(pattern.test(str));//true
+	console.log(pattern1.test(str));//false
 
-var pat=/ga?gle/;//？符号表示匹配1个a，或者0个a
-var str='gaagle';
-alert(pat.test(str));//false
+	console.log(pattern.exec(str));//["Box", index: 10, input: "this is a Box"]index：表示匹配到开始的位置，input：表示当前被匹配的字符串
+	console.log(pattern1.exec(str));//null
 
-var pat=/ga.?gle/;//.？符号表示匹配1个或者0个任意字符
-var str='gaagle';
-alert(pat.test(str));//true
-
-var pat=/go{2,4}gle/;//o{2,4}表示匹配o2-4次，包含2和4
-var str='goooogle';
-alert(pat.test(str));//true
-
-var pat=/gogle{2,4}/;//e{2,4}，并没有使用$限定结尾
-var str='gogleeeeeeeeee';
-alert(pat.test(str));//true
-
-var pat=/go{3}gle/;//o{3}表示匹配o3次，只能是3次
-var str='gooogle';
-alert(pat.test(str));//true
-
-var pat=/go{3,}gle/;//o{3,}表示匹配o3次,或者3次以上
-var str='goooooogle';
-alert(pat.test(str));//true
-
-var pat=/oogle/;
-var pat1=/[a-z]oogle/;//[a-z]表示26个小写字母都匹配，区分大小写
-var str='gooooogle';
-alert(pat.test(str));//true 匹配到后面oogle，因为没有前导限定
-alert(pat1.test(str));//true
-
-var pat1=/[a-zA-Z0-9]oogle/;//[a-zA-Z0-9]表示26个小写字母,大写字母，数字都匹配
-var str='gooooogle';
-alert(pat1.test(str));//true
-
-var pat1=/[^a-zA-Z0-9]oogle/;//[^a-zA-Z0-9]表示非 0-9,大小写字母的任意字符
-var str='-oogle';
-alert(pat1.test(str));//true
-
-var pat1=/^[0-9]oogle/;//^符号放在/后面，不是[]里面表示前导限定0-9开始
-var str='9oogle';
-alert(pat1.test(str));//true
-
-var pat1=/oogle[0-9]$/;//$符号结尾限定[0-9]
-var str='oogle9';
-alert(pat1.test(str));//true
-
-var pat1=/^[0-9]+oogle/;//^[0-9]+表示前导限定，1个或者多个0-9开始
-var str='9999oogle';
-alert(pat1.test(str));//true
-
-var pat1=/[a-zA-Z0-9_]oogle/;//等同于 /\woogle/, \w 匹配字母数字和_,\W表示完全相反,等同于[^a-zA-Z0-9_]
-var str='_oogle';
-alert(pat1.test(str));//true
-
-var pat1=/\doogle/;//\d匹配[0-9],\D匹配[^0-9]
-var str='9oogle';
-alert(pat1.test(str));//true
-
-var pat1=/goo\sgle/;//\s匹配空格，可以直接使用空格，也可以\s
-var str='goo gle';
-alert(pat1.test(str));//true
-
-var pat1=/google\b/;//\b表示匹配是否到达边界
-var str1='googlee';
-var str2='google';
-alert(pat1.test(str1));//false
-alert(pat1.test(str2));//true
-
-var pat1=/google|baidu|bing/;//|符号表示或者
-var str1='this is baidu';
-var str2='soso';
-alert(pat1.test(str1));//true
-alert(pat1.test(str2));//false
-
-var pat=/gogle{2,4}$/;//匹配e{2,4}次
-var pat1=/(gogle){2,4}/;//()分组符号，可以看成是一个字符，表示gogle2-4次
-var str='gogleeee';
-var str1='goglegogle';
-alert(pat.test(str));//true
-alert(pat1.test(str1));//true
+	var pat=/g.gle/;//.点符号匹配任意字符，除了换行符
+	var str='gogle';
+	alert(pat.test(str));//true
+	
+	var pat=/ga*gle/;//*符号表示匹配0个a，或者1个a，或者多个a
+	var str='gaagle';
+	alert(pat.test(str));//true
+	
+	var pat=/ga+gle/;//+符号表示匹配1个a，或者多个a
+	var str='gaaagle';
+	alert(pat.test(str));//true
+	
+	var pat=/ga?gle/;//？符号表示匹配1个a，或者0个a
+	var str='gaagle';
+	alert(pat.test(str));//false
+	
+	var pat=/ga.?gle/;//.？符号表示匹配1个或者0个任意字符
+	var str='gaagle';
+	alert(pat.test(str));//true
+	
+	var pat=/go{2,4}gle/;//o{2,4}表示匹配o2-4次，包含2和4
+	var str='goooogle';
+	alert(pat.test(str));//true
+	
+	var pat=/gogle{2,4}/;//e{2,4}，并没有使用$限定结尾
+	var str='gogleeeeeeeeee';
+	alert(pat.test(str));//true
+	
+	var pat=/go{3}gle/;//o{3}表示匹配o3次，只能是3次
+	var str='gooogle';
+	alert(pat.test(str));//true
+	
+	var pat=/go{3,}gle/;//o{3,}表示匹配o3次,或者3次以上
+	var str='goooooogle';
+	alert(pat.test(str));//true
+	
+	var pat=/oogle/;
+	var pat1=/[a-z]oogle/;//[a-z]表示26个小写字母都匹配，区分大小写
+	var str='gooooogle';
+	alert(pat.test(str));//true 匹配到后面oogle，因为没有前导限定
+	alert(pat1.test(str));//true
+	
+	var pat1=/[a-zA-Z0-9]oogle/;//[a-zA-Z0-9]表示26个小写字母,大写字母，数字都匹配
+	var str='gooooogle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/[^a-zA-Z0-9]oogle/;//[^a-zA-Z0-9]表示非 0-9,大小写字母的任意字符
+	var str='-oogle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/^[0-9]oogle/;//^符号放在/后面，不是[]里面表示前导限定0-9开始
+	var str='9oogle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/oogle[0-9]$/;//$符号结尾限定[0-9]
+	var str='oogle9';
+	alert(pat1.test(str));//true
+	
+	var pat1=/^[0-9]+oogle/;//^[0-9]+表示前导限定，1个或者多个0-9开始
+	var str='9999oogle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/[a-zA-Z0-9_]oogle/;//等同于 /\woogle/, \w 匹配字母数字和_,\W表示完全相反,等同于[^a-zA-Z0-9_]
+	var str='_oogle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/\doogle/;//\d匹配[0-9],\D匹配[^0-9]
+	var str='9oogle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/goo\sgle/;//\s匹配空格，可以直接使用空格，也可以\s
+	var str='goo gle';
+	alert(pat1.test(str));//true
+	
+	var pat1=/google\b/;//\b表示匹配是否到达边界
+	var str1='googlee';
+	var str2='google';
+	alert(pat1.test(str1));//false
+	alert(pat1.test(str2));//true
+	
+	var pat1=/google|baidu|bing/;//|符号表示或者
+	var str1='this is baidu';
+	var str2='soso';
+	alert(pat1.test(str1));//true
+	alert(pat1.test(str2));//false
+	
+	var pat=/gogle{2,4}$/;//匹配e{2,4}次
+	var pat1=/(gogle){2,4}/;//()分组符号，可以看成是一个字符，表示匹配gogle 整个字符串2-4次
+	var str='gogleeee';
+	var str1='goglegogle';
+	alert(pat.test(str));//true
+	alert(pat1.test(str1));//true
+	//RegExp.$1表示获取 正则模式 中 第一个分组 对应的 匹配字符串
+	var pat = /8(.*)8/;
+	var str = 'this is a 8google8';
+	str.match(pat);//先运行一下
+	console.log(pat.$1);//undefined
+	console.log(RegExp.$1);//google
+	
+	//$1的实际应用：
+	var pat = /8(.*)8/;
+	var str = 'this is a 8google8';
+	document.write(str.replace(pat,'<strong>$1</strong>'));//google
+	
+	//正则实现字符串中位置交换
+	var pat = /(.*)\s(.*)/;
+	var str = 'google baidu';
+	console.log(str.replace(pat,'$2 $1'));//baidu google
+	
+	//贪婪符号
+	var pat = /[a-z]/;
+	var pat1 = /[a-z]+/;//使用了贪婪模式
+	var pat2 = /[a-z]+?/;//加了一个惰性模式
+	var str = 'google';
+	console.log(str.replace(pat,'1'));//1oogle
+	console.log(str.replace(pat1,'1'));//1  匹配1次或者多次，所有字符串被替换成1
+	console.log(str.replace(pat2,'1'));//1oogle 只匹配1次
+	
+	var pat = /8(.*)8/;//使用了贪婪模式
+	var pat1 = /8(.*?)8/g;//加了一个惰性模式  就是加一个?，禁止了贪婪，开启全局
+	var str ='8goole8 8goole8 8goole8';
+	document.write(str.replace(pat,'<strong>$1</strong>'));//goole8 8goole8 8goole
+	document.write(str.replace(pat1,'<strong>$1</strong>'));//goole goole goole 
+	
+	
+	var pat =/^[a-z]+\s[0-9]{4}$/;
+	var pat1=/^([a-z]+)\s([0-9]{4})$/;//使用了()分组返回
+	var str ='google 2012';
+	var a=pat1.exec(str);
+	console.log(pat.exec(str));//Array[1]0: "google 2012"index: 0input: "google 2012"length: 1__proto__: Array[0]
+	alert(pat.exec(str));//google 2012
+	console.log(a);
+	console.log(a[0]);//返回匹配到的整个字符串
+	console.log(a[1]);//返回匹配到的第一个分组的字符串
+	console.log(a[2]);//返回匹配到的第二个分组的字符串
+	
 
 
 
