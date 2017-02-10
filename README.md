@@ -1097,6 +1097,20 @@ alert(box.toLocaleString());
 	console.log(a[1]);//返回匹配到的第一个分组的字符串
 	console.log(a[2]);//返回匹配到的第二个分组的字符串
 	
+	//捕获性分组，非捕获性分组
+	var pat =/(\d+)([a-z])/;//这个叫捕获性分组，所有的分组都捕获返回
+	var pat1=/(?:\d+)(?:[a-z])/;//非捕获性分组，只要在不需要捕获返回的 分组 前加上 ?:
+	var str='123abc';
+	var a=pat.exec(str);
+	var b=pat1.exec(str);
+	console.log(a[0]);//123a返回匹配到的整个字符串
+	console.log(a[1]);//123返回匹配到的第一个分组的字符串
+	console.log(a[2]);//a回匹配到的第二个分组的字符串
+	
+	console.log(b[0]);//123a返回匹配到的整个字符串
+	console.log(b[1]);//123返回匹配到的第一个分组的字符串
+	console.log(b[2]);//undefined
+	
 
 
 
