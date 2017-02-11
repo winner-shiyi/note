@@ -1137,7 +1137,51 @@ var result1=box1(sum(10),10);
 alert(result);//20
 alert(result1);//30
 
+1*2*3*4*5……阶乘，递归算法，一般都要在内部调用函数自身，可以使用arguments对象有一个callee的属性，该属性是一个指针，指向拥有这个arguments对象的函数
+function box(num){
+	if(num<=1){
+		return 1;
+	}else{
+		//return num*box(num-1);
+		//如果在内部多次递归调用函数自身，更为简便的操作是
+		return num*arguments.callee(num-1);
+	}
+}
+alert(box(4));//1*2*3*4=24
 
+var color='红色的';//这里color是全局变量，而这个全局变量又是window的属性
+alert(window.color);//红色的
+
+
+function函数的属性和方法：每个函数都包含2个属性，length和property。
+property原型，有两个方法apply 和call，都可以冒充某个对象，更重要的是可以扩展赖以运行的作用域，apply()要传两个参数，call()只要一个，用着更方便：
+
+function box(num1,num2){
+	return num1+num2;
+}
+function sum(num1,num2){
+	return box.apply(this,[num1,num2]);//apply(this表示window作用域，[表示传递参数])
+}
+function sum2(num1,num2){
+	return box.apply(this,arguments);//arguments 可以当数组传递
+}
+function sum3(num1,num2){
+	return box.call(this,num1，num2);//call(this表示window作用域，表示传递参数，表示传递参数)
+}
+console.log(sum(10,10));//20
+console.log(sum2(10,10));//20
+
+//用call实现对象冒充，函数冒充的方法如下：
+var color="红色的";
+var box={color:'蓝色的'};
+
+function sayColor(){
+	alert(this.color);
+}
+sayColor();//红色的   等同于window.sayColor()
+sayColor.call(window);//红色的  冒充window
+sayColor.call(this);//红色的   this就是window
+sayColor.call(box);//蓝色的
 
 	
 	
