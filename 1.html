@@ -14,6 +14,12 @@
 	}
 	</style>
 	<script>
+	//删除首尾空格
+	var pat =/^\s*(.+?)\s*$/;
+	var str ='goo  gle   ';
+	console.log(pat.test(str));//true
+	var result =pat.exec(str)[1];
+	console.log('|'+result+'|');//|goo  gle| 去掉首尾空格
 	
 
 	</script>

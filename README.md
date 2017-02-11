@@ -1042,10 +1042,14 @@ alert(box.toLocaleString());
 	alert(pat1.test(str2));//true
 	
 	var pat1=/google|baidu|bing/;//|符号表示或者
+	var pat2=/^[\w]+\.(zip|rar|7Z)$/;//！选择符号必须使用分组符号()包含起来
+
 	var str1='this is baidu';
 	var str2='soso';
+	var str3='123.zip';
 	alert(pat1.test(str1));//true
 	alert(pat1.test(str2));//false
+	alert(pat.exec(str));
 	
 	var pat=/gogle{2,4}$/;//匹配e{2,4}次
 	var pat1=/(gogle){2,4}/;//()分组符号，可以看成是一个字符，表示匹配gogle 整个字符串2-4次
@@ -1110,6 +1114,32 @@ alert(box.toLocaleString());
 	console.log(b[0]);//123a返回匹配到的整个字符串
 	console.log(b[1]);//123返回匹配到的第一个分组的字符串
 	console.log(b[2]);//undefined
+
+2017-02-11：
+function函数类型：
+函数声明方式：
+1,function aa(num1){};
+2,var aa=function(num1);
+3,var aa=new Function(num1);//使用function构造函数
+ps:不推荐 第三种方式，因为这种方式会导致解析两次代码（第一次解析常规ECMA代码，第二次解析传入构造函数中的字符串），从而影响性能。
+
+function box(sum,num){//把函数本身作为一个值用于参数传递，而不是函数的返回值结果作为参数传递
+	return sum(num);
+}
+function box1(sum,num){//把函数的返回值作为参数传递
+	return sum+num;
+}
+function sum(num){
+	return num+10;
+}
+var result=box(sum,10);
+var result1=box1(sum(10),10);
+alert(result);//20
+alert(result1);//30
+
+
+
+	
 	
 
 
