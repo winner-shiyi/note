@@ -1246,7 +1246,22 @@ console.log(obj.name);//lee
 var box='mr.lee';
 console.log(box.sustring(2));//这种写法就是引用类型的写法，其实调用都是系统内置的方法
 box.name='red';
-console.log(box.name);//undefined 给基本类型加属性和方法 是无效的
+console.log(box.name);//undefined 给基本类型加自定义的属性和方法 是无效的
+
+var box=new String('mr.lee');
+box.name='red';
+console.log(box.name);//red 通过new运算符 创建的box 就是一个对象可以添加自定义的属性和方法
+
+静态属性：就是直接通过 名称就可以调用的属性，无需new运算创建对象
+
+number类型：有5种方法
+var box=1000.784;
+console.log(box.toString());
+console.log(box.toSLocaleString());
+console.log(box.toFixed(2));
+console.log(box.toExponential());
+console.log(box.toPrecision(2));
+console.log(box.toPrecision(8));
 	
 	
 

@@ -14,9 +14,13 @@
 	}
 	</style>
 	<script>
-
-	var box='mr.lee';
-	console.log(box.substring(2));
+	var box=1000.784;
+	console.log(box.toString());//1000.784 把数字转化为字符串
+	console.log(box.toLocaleString());//1,000.784 本地化，根据本地格式转化为字符串
+	console.log(box.toFixed(2));//1000.78 小数点保留两位，并转化成字符串，会自动四舍五入
+	console.log(box.toExponential());//1.000784e+3 以指数形式展示，并转化成字符串
+	console.log(box.toPrecision(2));//1.0e+3  根据传参来决定是 指数形式 展示，还是 点数形式展示，并转化成字符串
+	console.log(box.toPrecision(8));//1000.7840  参数大于box本身的位数是4 
 
 
 	</script>
