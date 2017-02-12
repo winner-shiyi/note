@@ -1183,6 +1183,70 @@ sayColor.call(window);//红色的  冒充window
 sayColor.call(this);//红色的   this就是window
 sayColor.call(box);//蓝色的
 
+2017-02-12：
+变量，作用域，内存：
+变量不强制类型，所以js是松散型语言
+变量包含两种类型：
+1，基本类型值（保存在栈内存中的简单数据段：undefined、null、boolean、number和string，占有固定大小的空间）
+2，引用类型值（保存在堆内存中的对象，变量实际上只是一个指针，指向堆内存中的一个对象）
+
+在复制变量值的时候:
+基本类型复制的是栈内存中的值本身，而引用类型复制的是存放在栈内存中的数据段（一个名称）
+var box ='lee';
+var box2=box;
+console.log(box);//lee
+console.log(box2);//lee
+
+var box ={};
+box.name='lee';
+var box2=box;
+console.log(box2.name);//lee
+console.log(box.name);//lee
+box2.name='kkk';
+console.log(box2.name);//kkk因为box 和 box2指向的是堆内存中同一个对象，不管谁改了，大家都一起修改了
+console.log(box.name);//kkk
+
+变量作为传递参数的时候：
+js中所有函数的参数都是按照值来传递的，参数是不会按引用传递的，虽然变量有分成基本类型和引用类型
+
+//参数是 基本类型的时候 按照值传递
+var num=50;
+function box (num) {//这里的形参num相当于是一个局部变量，和外部没有任何联系
+	num+=10;
+	return num;
+}
+console.log(box(num));//60
+console.log(num);//50
+
+//参数是 引用类型的时候 注意：也是按照值传递，只是传递的参数是引用类型
+var obj= {num:50};
+function box (test) {
+	test.num+=10;
+	console.log(test===obj);//true
+	return test;
+}
+console.log(box(obj).num);//60
+console.log(obj.num);//60  因为在堆内存中都指向一个对象，不管谁改了，全部都改了
+
+var obj={};
+function box(obj){
+	obj.name='lee';
+	var obj={};//这里其实是断开旧的对象的引用，指向了新的对象的引用
+	obj.name='kkk';
+	return obj;//这里返回的是新的对象的引用
+}
+console.log(box(obj));//Object {name: "kkk"}
+console.log(box(obj)===obj);//false
+console.log(obj.name);//lee
+
+
+优化内存的最好方式，当一个对象使用完以后 把它设为null
+
+基本包装类型：是基本类型，但又是特殊的引用类型，就称为基本包装类型
+var box='mr.lee';
+console.log(box.sustring(2));//这种写法就是引用类型的写法，其实调用都是系统内置的方法
+box.name='red';
+console.log(box.name);//undefined 给基本类型加属性和方法 是无效的
 	
 	
 

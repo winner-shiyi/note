@@ -14,17 +14,10 @@
 	}
 	</style>
 	<script>
-	var color="红色的";
-	var box={color:'蓝色的'};
 
-	function sayColor(){
-		alert(this.color);
-	}
-	sayColor();//红色的   等同于window.sayColor()
-	sayColor.call(window);//红色的  冒充window
-	sayColor.call(this);//红色的   this就是window
-	sayColor.call(box);//蓝色的
-	
+	var box='mr.lee';
+	console.log(box.substring(2));
+
 
 	</script>
 	<input type="button" id="" value="选项1" style="background:yellow;">
