@@ -1333,7 +1333,48 @@ console.log(box.toPrecision(8));
 	console.log(Array);//返回构造函数 function Array() { [native code] }
 
 	//Math()对象 的属性 和 方法
+	var aa='';
+	console.log(Math.min(1,5,3,7,9,0,3));//0
+	console.log(Math.max(1,5,3,7,9,0,3));//9
+	console.log(Math.max([1,5,3,7,9,0,3]));//NaN
+	console.log(Math.max([1,5,3,aa,9,0,3]));//NaN
+	//ceil()向上舍入
+	console.log(Math.ceil(25.9));
+	console.log(Math.ceil(25.5));
+	console.log(Math.ceil(25.1));
+	//floor()向上舍入
+	console.log(Math.floor(25.9));
+	console.log(Math.floor(25.5));
+	console.log(Math.floor(25.1));
+	//round()四舍五入
+	console.log(Math.round(25.9));
+	console.log(Math.round(25.5));
+	console.log(Math.round(25.1));
+
+	//随机方法(0-1之间的随机数，但不包含0和1)
+	console.log(Math.random()*10);
+	//获取1-10的随机整数，5-10的随机整数
+	for(var i=0;i<10;i++){
+		console.log(Math.floor(Math.random()*10 +1 ));//范围1-10（包含1和10） 公式：10+1-1=10
+	}
+	for(var i=0;i<10;i++){
+		console.log(Math.floor(Math.random()*10 +5 ));//范围5-14（包含5和14） 公式：10+5-1=15
+	}
+	for(var i=0;i<10;i++){
+		console.log(Math.floor(Math.random()*6 +5 ));//范围5-10（包含5和10） 公式：x+5-1=10 x=6
+	}
+	//获取随机整数，封装一个函数
+	function randomNum (start,end) {
+		var total=end-start+1;//公式
+		return Math.floor(Math.random()*total +start);
+	}
+	console.log(randomNum (3,10));
 	
+
+2017-02-14:
+面向对象与原型
+
+
 
 
 
