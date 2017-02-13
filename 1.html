@@ -14,15 +14,18 @@
 	}
 	</style>
 	<script>
-	var box=1000.784;
-	console.log(box.toString());//1000.784 把数字转化为字符串
-	console.log(box.toLocaleString());//1,000.784 本地化，根据本地格式转化为字符串
-	console.log(box.toFixed(2));//1000.78 小数点保留两位，并转化成字符串，会自动四舍五入
-	console.log(box.toExponential());//1.000784e+3 以指数形式展示，并转化成字符串
-	console.log(box.toPrecision(2));//1.0e+3  根据传参来决定是 指数形式 展示，还是 点数形式展示，并转化成字符串
-	console.log(box.toPrecision(8));//1000.7840  参数大于box本身的位数是4 
-
-
+	var box='Mr.lee is lee';
+	console.log(box.toLowerCase());//全部小写  mr.lee is lee
+	console.log(box.toUpperCase());//全部大写  MR.LEE IS LEE
+	console.log(box.match('l'));//找到l 即返回l ["l", index: 3, input: "Mr.lee is lee"]
+	console.log(box.match('a'));//找没找到返回 null
+	console.log(box.split('.'));//按照传入的参数分割成数组  ["Mr", "lee is lee"]
+	
+	var box1='百度';
+	console.log(box1.link('http://www.baidu.com'));//<a href="http://www.baidu.com">百度</a>
+	
+	//ECMA 中的内置对象只有两个global 和 math
+	
 	</script>
 	<input type="button" id="" value="选项1" style="background:yellow;">
 	<input type="button" id="" value="选项2">

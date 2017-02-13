@@ -1262,8 +1262,59 @@ console.log(box.toFixed(2));
 console.log(box.toExponential());
 console.log(box.toPrecision(2));
 console.log(box.toPrecision(8));
+
+2017-02-13：	
+字符串对象常用的截取方法：
+//ps注意：IE中使用substr(负数参数)会全部返回，，，所以慎用substr
+	var box='mr.lee';
+	console.log(box.charAt(1));//r  返回指定索引位置的字符
+	console.log(box.charCodeAt(1));//114  l的asssii码
+	//如果参数只有1个，并且是正数，截取的结果是一样的，都是截取到最后
+	console.log(box.substring(1));//r.lee从开始位置1截取到最后
+	console.log(box.slice(1));//r.lee 
+	console.log(box.substr(1));//r.lee 
+	//参数有2个的时候，并且都是正数
+	console.log(box.slice(4,6));//ee 从开始位置4截取到位置6(不包括位置6)
+	console.log(box.substr(4,2));//ee 从开始位置4截取，选2位字符
+	//如果参数只有1个，并且是负数的时候
+	console.log(box.slice(-2));//ee  倒数第二个开始截取到最后
+	console.log(box.substring(-2));//mr.lee  变成从0开始截取到最后，等同于返回全部字符串
+	console.log(box.substr(-2));//ee 倒数第二个开始截取到最后
+	//如果参数有2个的时候，并且有负数
+	console.log(box.slice(2,-1));//.le 从位置2开始截取，到位置-1(不包括位置-1)
+	console.log(box.substring(2,-1));//mr 如果第二个参数比第一个参数小，第二个参数就会提前，变成substring(0,2)
+	console.log(box.substring(2,1));//r substring(1,2)
+	console.log(box.substring(2,-1));//空   第二个参数为负，直接等于0，选0个
 	
+	//获取字符串中某个字符的位置的方法：
+	var box='mr.lee is lee';
+	console.log(box.indexOf('l'));//返回 初始位置开始搜索l第一次出现的位置，3
+	console.log(box.lastIndexOf('l'));//返回 末尾位置开始搜索l第一次出现的位置，10
+	console.log(box.indexOf('l',5));//从第5个位置开始向后搜索l第一次出现的位置，10
+	console.log(box.lastIndexOf('l',5));//第5个位置开始向前搜索l第一次出现的位置，3
+	console.log(box.indexOf('a'));//如果没有找到想要的字符串，则 返回-1
 	
+	//找到字符串中所有的l的位置，放到某个数组中
+	var boxarr=[];
+	var pos=box.indexOf('l');
+	while(pos>-1){
+		boxarr.push(pos);
+		pos=box.indexOf('l',pos+1);
+	}
+	console.log(boxarr);//[3,10]
+	
+	//字符串中的大小写转换方法：
+	var box='Mr.lee is lee';
+	console.log(box.toLowerCase());//全部小写  mr.lee is lee
+	console.log(box.toUpperCase());//全部大写  MR.LEE IS LEE
+	console.log(box.match('l'));//找到l 即返回l ["l", index: 3, input: "Mr.lee is lee"]
+	console.log(box.match('a'));//找没找到返回 null
+	console.log(box.split('.'));//按照传入的参数分割成数组  ["Mr", "lee is lee"]
+	
+	var box1='百度';
+	console.log(box1.link('http://www.baidu.com'));//<a href="http://www.baidu.com">百度</a>
+	
+	//ECMA 中的内置对象只有两个global 和 math：
 
 
 
