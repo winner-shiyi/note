@@ -1314,7 +1314,26 @@ console.log(box.toPrecision(8));
 	var box1='百度';
 	console.log(box1.link('http://www.baidu.com'));//<a href="http://www.baidu.com">百度</a>
 	
-	//ECMA 中的内置对象只有两个global 和 math：
+	//ECMA 中的内置对象只有两个global 对象和 math 对象:
+	
+	//global对象的属性和方法：
+	//1,(URI编码和解码）
+	var box='//lee李';
+	var a=encodeURI(box);
+	var b=encodeURIComponent(box);
+	console.log(a);//只编码了中文，不会对本书属于URI的特殊字符进行编码//lee%E6%9D%8E
+	console.log(b);//特殊字符和中文都编码了，编码更彻底，更常用%2F%2Flee%E6%9D%8E
+	//解码
+	console.log(decodeURI(a));//   //lee李
+	console.log(decodeURIComponent(b));//   //lee李
+	
+	//2,eval()方法 解析字符串的作用 有可能被黑客注入代码
+	eval(alert(100));
+	//global对象的属性：undefined，NaN,Object，Array，Function等等
+	console.log(Array);//返回构造函数 function Array() { [native code] }
+
+	//Math()对象 的属性 和 方法
+	
 
 
 
