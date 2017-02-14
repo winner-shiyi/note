@@ -1373,6 +1373,112 @@ console.log(box.toPrecision(8));
 
 2017-02-14:
 面向对象与原型
+//工厂模式：就是为了解决实例化对象产生大量重复的问题。优点：集中实例化；缺点：分不清是哪个对象的实例；
+	function createObj(name,age){
+		var obj=new Object();
+		obj.name=name;
+		obj.age=age;
+		obj.run=function(){
+			return this.name+this.age+'运行中';
+		}
+		return obj;//一定要返回对象引用
+	}
+	function createObj2(name,age){
+		var obj=new Object();
+		obj.name=name;
+		obj.age=age;
+		obj.run=function(){
+			return this.name+this.age+'运行中';
+		}
+		return obj;
+	}
+	
+	var box1=createObj('lee',11);
+	var box2=createObj('kkk',28);//可以创建多个实例对象
+	
+	console.log(box1.run());//lee11运行中  打印box1对象实例的run()方法
+	console.log(box2.run());//kkk28运行中   打印box2对象实例的run()方法
+	
+	var box3=createObj2('weina',30);//box1，box2，box3都是对象，分不清是哪个对象的实例
+	console.log(box1 instanceof Object);//都是 true
+	console.log(box2 instanceof Object);//都是 true
+	console.log(box3 instanceof Object);//都是 true
+
+	
+	//构造函数(方法)创建
+	//构造函数内部没有new Object，但它的后台会自动var obj=new Object，this就相当于obj，构造函数不需要返回对象引用，它是后台自动返回
+	function Box(name,age){
+		this.name=name;
+		this.age=age;
+		this.run=function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	function Desk(name,age){
+		this.name=name;
+		this.age=age;
+		this.run=function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	var box1=new Box('lee',11);
+	var box2=new Box('kkk',28);
+	var box3=new Desk('weina',100);
+	console.log(box1.run());//lee11运行中  打印box1对象实例的run()方法
+	console.log(box2.run());//kkk28运行中  打印box2对象实例的run()方法
+	
+	//构造函数怎么解决对象识别问题
+	console.log(box1 instanceof Box);//true
+	console.log(box2 instanceof Box);//true
+	console.log(box3 instanceof Box);//false
+	console.log(box3 instanceof Desk);//true box3是Desk对象的引用
+	//普通函数调用  构造函数的时候
+	console.log(Box('weisi',26));//undefined 构造函数，用普通函数调用一般是无效的，必须使用new运算符
+	//使用对象冒充调用 构造函数
+	var aa=new Object();
+	Box.call(aa,'dudu',100);//对象冒充
+	console.log(aa.run());//dudu100运行中
+	
+//构造函数和工厂模式对比：
+不同之处：
+1,构造函数没有显示的创建对象（new Object)
+2,直接将属性和方法赋值给this对象
+3，没有return语句，不需要return obj最后
+
+构造函数的写法规范：
+1，函数名和实例化对象名称相同 并且首字母大写
+2，通过构造函数创建对象，必须使用new运算符  var box1=new Box('lee',11);
+
+function Box(name,age){
+		this.name=name;
+		this.age=age;
+		this.run=function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	var box1=new Box('lee',11);
+	var box2=new Box('lee',11);
+	console.log(box1.name==box2.name);//true
+	console.log(box1.run()==box2.run());//true  构造函数体内的方法的值是一样
+	console.log(box1.run==box2.run);//false  当比较一个方法的时候，比较的是引用地址（引用类型的比较，这里重复的创建对象，即使是一样的，也是已经断开了旧的对象引用）
+	
+	//如果实现引用地址的一致性呢，，，实际作用不大 而且不好，只是加深了解
+	function Box(name,age){
+		this.name=name;
+		this.age=age;
+		this.run=run;
+	}
+	
+	function run(){//构造函数内部的方法通过全局来实现引用地址一致
+		return this.name+this.age+'运行中';
+	}
+	var box1=new Box('lee',11);
+	var box2=new Box('lee',11);
+	console.log(box1.run()==box2.run());//true
+	console.log(box1.run==box2.run);//true 
+
+
+
 
 
 

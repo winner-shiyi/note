@@ -14,8 +14,33 @@
 	}
 	</style>
 	<script>
+	/*function Box(name,age){
+		this.name=name;
+		this.age=age;
+		this.run=function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	var box1=new Box('lee',11);
+	var box2=new Box('lee',11);
+	console.log(box1.name==box2.name);//true
+	console.log(box1.run()==box2.run());//true  构造函数体内的方法的值是一样
+	console.log(box1.run==box2.run);//false  当比较一个方法的时候，比较的是引用地址（引用类型的比较，这里重复的创建对象，即使是一样的，也是已经断开了旧的对象引用）
 	
-
+	//如果实现引用地址的一致性呢，，，实际作用不大，只是加深了解*/
+	function Box(name,age){
+		this.name=name;
+		this.age=age;
+		this.run=run;
+	}
+	
+	function run(){//构造函数内部的方法通过全局来实现引用地址一致
+		return this.name+this.age+'运行中';
+	}
+	var box1=new Box('lee',11);
+	var box2=new Box('lee',11);
+	console.log(box1.run()==box2.run());//true
+	console.log(box1.run==box2.run);//true 
 
 	</script>
 	<input type="button" id="" value="选项1" style="background:yellow;">
