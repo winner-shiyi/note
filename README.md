@@ -1449,7 +1449,7 @@ console.log(box.toPrecision(8));
 1，函数名和实例化对象名称相同 并且首字母大写
 2，通过构造函数创建对象，必须使用new运算符  var box1=new Box('lee',11);
 
-function Box(name,age){
+	function Box(name,age){
 		this.name=name;
 		this.age=age;
 		this.run=function(){
@@ -1476,6 +1476,8 @@ function Box(name,age){
 	var box2=new Box('lee',11);
 	console.log(box1.run()==box2.run());//true
 	console.log(box1.run==box2.run);//true 
+
+
 
 
 
