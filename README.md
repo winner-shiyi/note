@@ -1466,6 +1466,7 @@ console.log(box.toPrecision(8));
 	function Box(name,age){
 		this.name=name;
 		this.age=age;
+		
 		this.run=run;
 	}
 	
@@ -1476,6 +1477,46 @@ console.log(box.toPrecision(8));
 	var box2=new Box('lee',11);
 	console.log(box1.run()==box2.run());//true
 	console.log(box1.run==box2.run);//true 
+
+prototype原型：好处是可以让所有对象实例  共享 它所包含的属性和方法
+	//构造函数
+	/*function Box(name,age){
+		this.name=name;        //实例属性
+		this.age=age;          //实例属性
+		this.run=function(){   //实例方法
+			return this.name+this.age+'运行中';
+		}
+	}*/
+	//原型
+	function Box(){}//构造函数体内什么都没有，如果有，叫做实例属性，实例方法
+	Box.prototype.name='lee';  //原型属性
+	Box.prototype.age=100;     //原型属性
+	Box.prototype.run=function(){   //原型方法
+		return this.name+this.age+'运行中';
+	}
+	
+	var box1=new Box();
+	var box2=new Box();
+	var aa=new Object();
+	console.log(box1.name);//lee
+	console.log(box1.run());//lee100运行中
+	console.log(box1.run()==box2.run());//true
+	
+	//如果是实例方法，不同的实例化，他们的方法地址是不一样的，每个实例化对象都是唯一的
+	//如果是原型方法，不同的实例化，那么他们的地址是共享的，大家都是一样的
+	console.log(box1.run==box2.run);//true  因为是原型写法，原型是共享的，这里的方法是相同的；对比构造函数
+	
+	//我们创建的每个函数都有一个prototype属性，这个属性是一个对象
+	console.log(box1.prototype);//undefined  这个属性是一个对象，访问不到
+	console.log(box1.__proto__);//Object {name: "lee", age: 100}这个是属性是一个指针指向prototype原型对象。IE不支持
+	console.log(box1.constructor);//function Box(){}可以获取构造函数本身
+	
+	//判断一个对象实例 是不是 指向了 原型对象，基本上只要实例化了，是自动指向原型对象
+	console.log(Box.prototype.isPrototypeOf(box1));//true
+	console.log(Box.prototype.isPrototypeOf(aa));//false aa虽然实例化了，可是指向的原型对象不是Box
+	console.log(Object.prototype.isPrototypeOf(aa));//true
+	console.log(Object.prototype.isPrototypeOf(box1));//true
+
 
 
 
