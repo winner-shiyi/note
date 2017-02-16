@@ -1545,6 +1545,7 @@ prototype原型：好处是可以让所有对象实例  共享 它所包含的�
 	Box.prototype.run=function(){//原型方法
 		return this.name+this.age+'运行中';
 	}
+	
 	//判断实例中是否存在指定属性hasOwnProperty()
 	var box1=new Box();
 	console.log(box1.hasOwnProperty('name'));//false 判断box1实例是否有name属性
