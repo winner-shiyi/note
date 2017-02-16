@@ -1509,6 +1509,7 @@ prototype原型：好处是可以让所有对象实例  共享 它所包含的�
 	//我们创建的每个函数都有一个prototype属性，这个属性是一个对象
 	console.log(box1.prototype);//undefined  这个属性是一个对象，访问不到
 	console.log(box1.__proto__);//Object {name: "lee", age: 100}这个是属性是一个指针指向prototype原型对象。IE不支持
+	console.log(Box.prototype);//Object {name: "lee", age: 100}
 	console.log(box1.constructor);//function Box(){}可以获取构造函数本身
 	
 	//判断一个对象实例 是不是 指向了 原型对象，基本上只要实例化了，是自动指向原型对象
@@ -1516,6 +1517,115 @@ prototype原型：好处是可以让所有对象实例  共享 它所包含的�
 	console.log(Box.prototype.isPrototypeOf(aa));//false aa虽然实例化了，可是指向的原型对象不是Box
 	console.log(Object.prototype.isPrototypeOf(aa));//true
 	console.log(Object.prototype.isPrototypeOf(box1));//true
+
+	//原型模式的执行流程 
+	//1,先查找实例属性或实例方法，如果有，立刻返回
+	//2，如果没有实例对象里面没有，则去原型对象里找
+	function Box(){
+		//this.name='kkk';   //实例属性，并不是重写原型属性
+	}//构造函数体内什么都没有，如果有，叫做实例属性，实例方法
+	Box.prototype.name='lee';   //原型属性
+	Box.prototype.age=100;      //原型属性
+	Box.prototype.run=function(){//原型方法
+		return this.name+this.age+'运行中';
+	}
+	
+	var box1=new Box();
+	box1.name='kkk';   //实例属性，并不是重写原型属性
+	console.log(box1.name);//kkk  得到的是实例属性的值，因为就近原则
+	var box2=new Box();
+	console.log(box2.name);//lee  因为是box1实例重新修改了name，它并不共享，不影响box2实例的属性，继续继承自原型
+	delete box1.name; //删除box1实例中的属性
+	console.log(box1.name);//lee
+
+	//如何判断属性是在构造函数实例里，还是在原型里
+	function Box(){}//构造函数体内什么都没有，如果有，叫做实例属性，实例方法
+	Box.prototype.name='lee';   //原型属性
+	Box.prototype.age=100;      //原型属性
+	Box.prototype.run=function(){//原型方法
+		return this.name+this.age+'运行中';
+	}
+	//判断实例中是否存在指定属性hasOwnProperty()
+	var box1=new Box();
+	console.log(box1.hasOwnProperty('name'));//false 判断box1实例是否有name属性
+	
+	/*box1.name='lee';
+	console.log(box1.hasOwnProperty('name'));//true */
+	
+	//in 操作符如果返回true，只要有存在该属性，无论是在原型对象中还是在实例中
+	console.log('name' in box1);//true 此时name属性是存在 box1的原型对象中
+	
+	//判断指定属性是否仅存在原型对象中   只有原型中有属性
+	function isProperty(object,property){
+		return !object.hasOwnProperty(property) && (property in object);
+	}
+	console.log(isProperty(box1,'name'));//说明此时name属性 在box1的原型对象中
+	
+	//使用字面量的方式创建 原型
+	//传统构造函数方法
+	function Box(){}//构造函数体内什么都没有，如果有，叫做实例属性，实例方法
+	Box.prototype.name='lee';   //原型属性
+	Box.prototype.age=100;      //原型属性
+	Box.prototype.run=function(){//原型方法
+		return this.name+this.age+'运行中';
+	}
+	
+	var box1=new Box();
+	console.log(Box.prototype);//Object {name: "lee", age: 100} 通过构造函数名可以访问到原型对象
+	console.log(box1.constructor);//function Box(){}
+	console.log(box1.constructor==Box);//true
+	console.log(box1.constructor==Object);//false
+	
+	//使用字面量方式 创建 原型
+	//和使用构造函数创建原型对象区别：字面量创建的原型对象，使用constructor属性不会指向实例，而是指向Object
+	function Box(){};
+	Box.prototype={//这里原型对象 又创建了一个新的对象
+		name:'lee',
+		age:100,
+		run:function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	var box1=new Box();
+	console.log(box1.constructor);//function Object() { [native code] }
+	console.log(box1.constructor==Box);//false
+	console.log(box1.constructor==Object);//true 
+	
+	//让box1强制指向Box 而不是一个新创建的对象
+	function Box(){};
+	Box.prototype={//这里原型对象 又创建了一个新的对象
+		constructor:Box,//强制指向Box
+		//constructor:String, //也可以强制指向string
+		name:'lee',
+		age:100,
+		run:function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	var box1=new Box();
+	console.log(box1.constructor);
+	console.log(box1.constructor==Box);//true
+	console.log(box1.constructor==Object);//false
+	
+	//重写了原型对象，会造成原来的原型对象和构造函数实例之前的关系切断
+	function Box(){};
+	Box.prototype={//这里原型对象 又创建了一个新的对象
+		name:'lee',
+		age:100,
+		run:function(){
+			return this.name+this.age+'运行中';
+		}
+	}
+	//重写原型对象，并不仅仅是覆盖
+	Box.prototype={//这里不会保留之前原型对象的任何信息
+				//把原来的原型对象和构造函数对象实例  之前的 关系切断
+		age:200
+	}
+	var box1=new Box();
+	console.log(box1.name);//undefined
+	
+
+
 
 
 
