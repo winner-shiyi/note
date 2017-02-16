@@ -1624,6 +1624,8 @@ prototype原型：好处是可以让所有对象实例  共享 它所包含的�
 	}
 	var box1=new Box();
 	console.log(box1.name);//undefined
+
+
 	
 
 
