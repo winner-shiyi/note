@@ -5,51 +5,23 @@
 	<title>Document</title>
 </head>
 <body>
-	<style>
-	div{
-		width:200px;
-		height:200px;
-		border:1px solid red;
-		display:none;
-	}
-	</style>
 	<script>
-	//原型的缺点
-	function Box () {}
-	Box.prototype={
-		constructor:Box,
-		name:'lee',
-		age:100,
-		family:['哥哥','姐姐','妹妹'],
-		run:function(){
-			return this.name+this.age+'运行中';
-		}
-	};
-	var box1=new Box();
-	console.log(box1.family);//["哥哥", "姐姐", "妹妹"]
-	box1.family.push('弟弟');
-	console.log(box1.family);//["哥哥", "姐姐", "妹妹", "弟弟"]
-	box1.name='kkk';
-	console.log(box1.name);//kkk
+	//继承 通过原型链实现  就近原则，实例里有就返回实例
+	function Box(){   //被继承的函数叫做超类型（父类，基类）
+		this.name='lee';
+	}
+	Box.prototype.name='kkk';
 
-	var box2=new Box();
-	console.log(box2.family);//["哥哥", "姐姐", "妹妹", "弟弟"]
+	function Desk(){  //继承的函数叫做子类型(子类，派生类)
+		this.age=100;
+	}
+	//通过原型链继承，超类型实例化后的对象实例，赋值给子类型的原型属性
+	Desk.prototype=new Box();
 
-	console.log(box1.run==box2.run);//true
-	console.log(box2.name);//lee
+	var desk=new Desk();
+	console.log(desk.name);//lee 就近原则，实例里有就返回实例
 
 	
+	
 	</script>
-	<input type="button" id="" value="选项1" style="background:yellow;">
-	<input type="button" id="" value="选项2">
-	<input type="button" id="" value="选项3">
-	<div style="display:block;">内容1</div>
-	<div>内容2</div>
-	<div>内容3</div>
-	</body>
-
-
-	function aaa (){}
-
-	var bbb =  aaa;
 </html>

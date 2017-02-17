@@ -1625,6 +1625,142 @@ prototype原型：好处是可以让所有对象实例  共享 它所包含的�
 	var box1=new Box();
 	console.log(box1.name);//undefined
 
+2017-02-16：
+
+//原型的缺点 j就是它最大的优点 共享
+function Box () {}
+Box.prototype={
+	constructor:Box,
+	name:'lee',
+	age:100,
+	family:['哥哥','姐姐','妹妹'],
+	run:function(){
+		return this.name+this.age+'运行中';
+	}
+};
+var box1=new Box();
+console.log(box1.family);//["哥哥", "姐姐", "妹妹"]
+box1.family.push('弟弟');
+console.log(box1.family);//["哥哥", "姐姐", "妹妹", "弟弟"]
+box1.name='kkk';
+console.log(box1.name);//kkk
+
+var box2=new Box();
+//box2共享了box1的family，因为family数组是引用类型，保存的是指针，实际引用指向的都是原型对象
+console.log(box2.family);//["哥哥", "姐姐", "妹妹", "弟弟"]
+
+console.log(box1.run==box2.run);//true
+console.log(box2.name);//lee
+
+2017-02-17：
+//组合构造函数+原型模式    是创建对象比较好的方法
+function Box (name,age) {//保持独立的用构造函数
+	this.name=name;
+	this.age=age;
+	this.family=['哥哥','姐姐','妹妹'];
+}
+Box.prototype={//保持共享的用原型
+	constructor:Box,
+	run:function(){
+		return this.name+this.age+'运行中';
+	}
+};
+var box1=new Box('lee',11);
+box1.family.push('弟弟');
+console.log(box1.family);//["哥哥", "姐姐", "妹妹", "弟弟"]
+console.log(box1.name);//lee
+
+var box2=new Box('kkk',100);
+//family数组是引用类型没有使用原型模式，所以没有共享
+console.log(box2.family);//["哥哥", "姐姐", "妹妹"]
+console.log(box1.run==box2.run);//true
+console.log(box2.name);//kkk
+
+//动态原型模式 
+//注意需要判断避免多次原型初始化，不可使用字面量方式重写原型，会切断实例和新原型之间的联系
+function Box (name,age) {
+	this.name=name;
+	this.age=age;
+	this.family=['哥哥','姐姐','妹妹'];
+	/*alert('原型初始化开始');
+	Box.prototype.run= function(){//把原型封装到构造函数里，会初始化2次
+		return this.name+this.age+'运行中';
+	};
+	alert('原型初始化结束');*/
+
+	if(typeof this.run!='function'){
+		alert('原型初始化开始');
+		Box.prototype.run= function(){//把原型封装到构造函数里，会初始化2次
+			return this.name+this.age+'运行中';
+		};
+		alert('原型初始化结束');
+	}
+}
+var box1=new Box('lee',11);
+console.log(box1.run());
+
+var box2=new Box('kkk',100);
+console.log(box2.run());
+
+//寄生构造函数 工程模式+构造函数
+function Box (name,age) {
+	var obj=new Object();
+	obj.name=name;
+	obj.age=age;
+	obj.run=function(){
+		return this.name+this.age+'运行中';
+	}
+	return obj;
+}
+var box1=new Box('lee',11);
+console.log(box1.run());
+
+var box2=new Box('kkk',100);
+console.log(box2.run());
+
+//稳妥构造函数 在构造函数体内禁止使用this，在外面实例化调用的使用禁止使用new
+function Box (name,age) {
+	var obj=new Object();
+	obj.name=name;
+	obj.age=age;
+	obj.run=function(){
+		return this.name+this.age+'运行中';
+	}
+	return obj;
+}
+var box1=Box('lee',11);
+console.log(box1.run());
+
+var box2=Box('kkk',100);
+console.log(box2.run());
+
+
+//继承 通过原型链实现
+function Box(){   //被继承的函数叫做超类型（父类，基类）
+	this.name='lee';
+}
+
+function Desk(){  //继承的函数叫做子类型(子类，派生类)
+	this.age=100;
+}
+
+function Table(){ //孙子
+	this.level='aaa';
+}
+//通过原型链继承，超类型实例化后的对象实例，赋值给子类型的原型属性
+Desk.prototype=new Box();
+Table.prototype=new Desk();
+
+var box=new Box();
+console.log(box.constructor);//function Box(){this.name='lee';}
+
+var desk=new Desk();
+console.log(desk.name);//lee
+
+var table=new Table();
+console.log(table.name);//lee
+
+
 
 	
 
