@@ -1748,6 +1748,8 @@ function Table(){ //孙子
 	this.level='aaa';
 }
 //通过原型链继承，超类型实例化后的对象实例，赋值给子类型的原型属性
+//new Box()会将Box构造里的信息和原型里的信息都交给Desk
+//Desk的原型，得到的是Box的构造+原型里的信息
 Desk.prototype=new Box();
 Table.prototype=new Desk();
 
@@ -1759,6 +1761,295 @@ console.log(desk.name);//lee
 
 var table=new Table();
 console.log(table.name);//lee
+
+
+//继承 通过原型链实现  就近原则，实例里有就返回实例
+function Box(){   //被继承的函数叫做超类型（父类，基类）
+	this.name='lee';
+}
+Box.prototype.name='kkk';
+
+function Desk(){  //继承的函数叫做子类型(子类，派生类)
+	this.age=100;
+}
+//通过原型链继承，超类型实例化后的对象实例，赋值给子类型的原型属性
+Desk.prototype=new Box();
+
+var box=new Box();
+var desk=new Desk();
+console.log(desk.name);//lee 就近原则，实例里有就返回实例
+//子类型从属于自己或者他的超类型
+console.log(desk instanceof Object);//true
+console.log(desk instanceof Desk);//true
+console.log(box instanceof Desk);//false
+
+
+//使用对象冒充继承 缺点是：只能继承构造函数里的信息，无法继承原型中的信息
+function Box(name,age){   
+	this.name=name;
+	this.age=age;
+	/*this.run=function(){//方法放在构造函数里，后面每次实例化都会分配一个内存地址，浪费空间，最好放在原型里
+		return this.name+this.age+'运行中';
+	}*/
+}
+Box.prototype.family='家庭';
+Box.prototype.run=function(){//这个方法是希望 共享的，可是使用对象冒充继承，缺无法传递
+	return this.name+this.age+'运行中';
+}
+
+function Desk(name,age){   
+	Box.call(this,name,age);//冒充了Box对象，但是只能继承构造函数中的信息
+}
+var desk=new Desk('lee',100);
+console.log(desk.name);//lee
+console.log(desk.family);//undefined
+console.log(desk.run());//报错
+
+
+//组合模式继承  原型链+借用构造函数 有个缺点：超类型 会被调用两次
+function Box(name,age){   
+	this.name=name;
+	this.age=age;
+}
+Box.prototype.run=function(){
+	return this.name+this.age+'运行中';
+}
+
+function Desk(name,age){   
+	Box.call(this,name,age);//冒充了Box对象，但是只能继承构造函数中的信息
+}
+Desk.prototype=new Box();//原型链继承 原型中的信息
+
+var desk=new Desk('lee',100);
+console.log(desk.run());//lee100运行中
+
+
+2017-02-18:
+//匿名函数 和 闭包
+//匿名函数其中一种：通过自我执行来 执行的匿名函数
+(function(){    //(匿名函数)();
+	alert('lee');
+})();
+
+//自我执行匿名函数的传参
+(function(age){
+	alert(age);
+})(100);
+
+//函数里放一个匿名函数 
+function box(){
+	return function(){//闭包
+		return 'ycc';
+	}
+}
+var bb=box();
+console.log(bb());//ycc
+
+console.log(box);//function box(){return function(){return 'ycc';}}
+console.log(box());//function(){return 'ycc';}
+console.log(box()());//ycc
+
+
+//闭包
+//由于闭包作用域里的局部变量资源不会被立刻销毁回收，所以可能会占用更多的内存，使性能下降，建议非常有必要的时候才使用闭包，使用完成后 设置为null 
+//通过闭包返回局部变量
+function box(){
+	var age=10;
+	return function(){
+		return age;
+	};
+}
+console.log(box()());//10
+
+//使用全局变量进行累加
+var age=100;
+function box(){
+	age++;
+}
+console.log(age);//100
+box();
+console.log(age);//101
+box();
+console.log(age);//102
+
+//使用局部变量 无法进行累加
+function box1(){
+	var age1=50;//因为age1每次都被初始化成50
+	age1++;
+	return age1;
+}
+//console.log(age1);//报错，访问不到内部变量age1
+console.log(box1());//51
+console.log(box1());//51
+
+//使用匿名函数（闭包）实现局部变量驻留内存中，从而不断累加
+function box(){
+	var age=100;
+	return function(){
+		age++;
+		return age;
+	}
+}
+//下面这样调用是无法累加的
+console.log(box()());//101
+console.log(box()());//101
+//应该这样调用
+var b=box();
+console.log(b());//101
+console.log(b());//102
+console.log(b());//103
+console.log(b());//104
+//这个b会驻留在内存中，不用的时候设置为null
+b=null;//解除内存占用，等待垃圾回收
+console.log(b());//报错  设置为null就不能引用
+
+
+//闭包在循环数组里的用法
+function box () {
+	var arr=[];
+	for (var i = 0; i <5; i++) {
+		arr[i]=i;
+	};
+	return arr;
+}
+var b=box();
+console.log(b);//[0, 1, 2, 3, 4]
+
+
+function box () {
+	var arr=[];
+	for (var i = 0; i <5; i++) {
+		arr[i]=function(){//只是匿名函数  不是闭包
+			return i;
+		}
+	};
+	//循环已经执行完毕，i最后是5
+	return arr;
+}
+
+var b=box();
+console.log(b.length);//5
+console.log(b);//[function, function, function, function, function]
+console.log(b[0]());//5
+console.log(b[1]());//5
+console.log(b[2]());//5
+
+//改1
+function box () {
+	var arr=[];
+	for (var i = 0; i <5; i++) {
+		arr[i]=(function(num){//通过及时的  执行匿名函数传参i,自我执行
+			return num;
+		})(i);
+	};
+	//循环已经执行完毕，i最后是5
+	return arr;
+}
+
+var b=box();
+console.log(b);//[0, 1, 2, 3, 4]
+
+//改2 利用闭包中局部变量驻留内存中
+function box () {
+	var arr=[];
+	for (var i = 0; i <5; i++) {
+		arr[i]=(function(num){//匿名函数 是闭包
+			return function(){//因为闭包变量可以驻留在内存中，和前面的变量累加是一个道理
+				return num;
+			}
+			/*return function(){  这一段就是一个闭包
+				return num;
+			}*/
+		})(i);//这里的自我执行有赋值给变量，其实可以去掉(匿名函数)()中第一个圆括号
+	};
+	//循环已经执行完毕了，num为什么可以为0,1,2,3,4
+	return arr;
+}
+
+var b=box();
+console.log(b);//[function, function, function, function, function]
+console.log(b[0]());//0
+console.log(b[1]());//1
+console.log(b[2]());//2 
+
+
+//闭包中的this指向  因为闭包不属于这个对象的属性或者方法，闭包在运行时，this指向window的
+/*var user='the window';
+var box={
+	user:'the box',
+	getuser:function(){
+		return this.user;
+	}
+}
+console.log(this.user);//the window
+console.log(box.getuser());//the box
+
+var user='the window';
+var box={
+	user:'the box',
+	getuser:function(){
+		return function(){//这里是一个闭包
+			return this.user;
+		}
+	}
+}
+console.log(this.user);//the window
+console.log(box.getuser());//function(){return this.user;}
+console.log(box.getuser()());//the window 闭包在运行时候，指向了window*/
+
+//如果想让闭包中的this指向的是box
+var user='the window';
+var box={
+	user:'the box',
+	getuser:function(){
+		return function(){//这里是一个闭包
+			return this.user;
+		}
+	}
+}
+//方法一：对象冒充
+console.log(box.getuser().call(box));//the box
+//方法二：改变this作用域
+var user='the window';
+var box={
+	user:'the box',
+	getuser:function(){
+		//这里作用域的this指box
+		var that=this;
+		return function(){//这里是一个闭包
+			//这里作用域this是window，但是that是只box
+			return that.user;
+		}
+	}
+}
+console.log(box.getuser()());//the box
+
+//内存泄漏
+//闭包在ie中会导致一些问题，就是内存泄漏问题，就是无法销毁驻留在内存中的元素
+/*function box () {
+	var oDiv=document.getElementById('oDiv');//oDiv用完之后一直驻留在内存
+	oDiv.onclick=function(){
+		alert(oDiv.innerHTML);//这里的oDiv导致内存泄漏
+	}
+	//需要手动解除引用，等待垃圾回收,但是造成点击事件无法响应了
+	oDiv=null;
+	alert(oDiv);//查看Odiv是否存在  存在
+}
+box();*/
+//改1
+function box () {
+	var oDiv=document.getElementById('oDiv');//oDiv用完之后一直驻留在内存
+	var txt=oDiv.innerHTML;
+	oDiv.onclick=function(){
+		alert(txt);
+	}
+	oDiv=null;
+	alert(oDiv);//查看Odiv是否存在  不存在
+}
+box();
+
+
+
 
 
 
