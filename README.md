@@ -2048,6 +2048,115 @@ function box () {
 }
 box();
 
+//模仿块级作用域，js是没有块级作用域的,匿名函数中私有化问题
+function box(){
+	for(var i=0;i<5;i++){//这里类似一个块级作用域（js里没这个东西）
+
+	}
+	var i;//就算重新声明，也不会影响之前声明初始化的数据，证明了js是没有块级作用域
+	//即使后面多次声明(未初始化数据或赋值)，js也只认识 第一次声明
+	alert(i);//这个块级作用域外面，仍然能访问到 5
+}
+box();
+
+
+2017-02-19：
+//模仿块级作用域（私有作用域）
+//(function(){})();私有作用域的优点：可以减少闭包占用内存的问题，因为没有指向匿名函数的引用，只要函数执行完毕，就可以销毁其作用域链了
+function box(){
+	(function(){//包含自我执行的匿名函数，就可以实现私有作用域，网页一打开就会自动执行
+		for(var i=0;i<5;i++){
+			console.log(i);//0,1,2,3,4
+		}
+	})();	//出了 这个私有作用域，变量立即被销毁	
+	alert(i);//报错
+}
+box();
+
+//js中私有变量，私有函数的概念；但是属性和方法都是公有的，没有私有的概念
+function Box(){
+	this.age=100;         //属性，公有的
+	this.run=function(){  //方法，公有的
+		return '运行中';
+	}
+}
+var box=new Box();   //可以打印出来 属性age，和方法run，说明其是公有的
+console.log(box.age);//100 
+console.log(box.run());//运行中
+
+function Box(){
+	var age=100;         //变量，私有的
+	function run(){  //函数，私有的
+		return '运行中';
+	}
+}
+var box=new Box();//所以打印不出来
+console.log(box.age);//undefined
+console.log(box.run());//报错
+
+//提供对外可以见的公共接口，特权方法
+
+function Box(){
+	var age=100;         //变量，私有的
+	function run(){  //函数，私有的
+		return '运行中';
+	}
+	this.publicGo=function(){//提供对外可以见的公共接口，特权方法
+		return age+run();
+	}
+}
+var box=new Box();//可以打印出来
+console.log(box.age);//undefined
+console.log(box.publicGo());//1.html:67 100运行中
+
+//如何把一个私有变量 变成  静态共享属性
+(function(){
+	var user='';//私有变量
+	//function Box(){};在私有作用域里写构造函数，不支持，外部var box=new Box()访问了
+	Box=function(val){//省略var ，Box变成全局变量，这里匿名函数赋值给全局变量，等于构造函数
+		user=val;
+	}
+	Box.prototype.getUser=function(){
+		return user;
+	}
+	Box.prototype.setUser=function(val){
+		user=val;
+	}
+})();
+var box1=new Box('lee');
+console.log(box1.getUser());//lee
+var box2=new Box('kkk');
+console.log(box1.getUser());//kkk
+box2.setUser('ooo');
+console.log(box1.getUser());//ooo 就是box2中设置修改了user，box1中能访问到 
+
+
+//什么叫单例，就是永远只实例化一次，其实就是字面量对象声明方式
+var box={   //第一次实例化了，无法第二次实例化，那么就是单例
+	user:'lee';
+	run:function(){
+		return '运行中';
+	}
+}
+
+//单例在很多 js框架中的实际应用
+var box=function(){  
+	var user='lee';//私有变量
+	function run(){//私有函数
+		return '运行中';
+	}
+	var obj={
+		publicGo:function(){//对外公共的接口 的特权方法
+			return user+run();
+		}
+	};
+	return obj;
+}();//自我执行(匿名函数)()，当有赋值的时候，可以省略第一个圆括号
+
+console.log(box.publicGo());//lee运行中
+
+
+
 
 
 
