@@ -2238,7 +2238,8 @@ window.location.replace('https://www.baidu.com/');//不产生任何历史痕迹�
 
 //alert(navigator.userAgent);//获取浏览器的版本，用户代理字符
 
-
+2017-02-22:
+DOM
 
 
 
