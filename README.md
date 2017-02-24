@@ -2293,6 +2293,54 @@ function removeWhiteNode (obj) {
 }
 
 
+2017-02-24:
+原生js中有insertBefore()方法，在某节点之前插入，但是没有在某节点之后插入的方法
+//自己写一个某节点之后插入的方法insertAfter()
+
+<body>
+<div id="box">
+	<p>aaa</p>
+	<p>bbb</p>
+	<p>ccc</p>
+</div></html>
+
+var box = document.getElementById('box');
+var p= document.createElement('p');
+p.innerHTML='我是插入在box后的p';
+insertAfter(p,box);
+function insertAfter(newEle,targerEle){
+	var parent=targerEle.parentNode;
+	//可以有优化性能的地方，如果这个targerEle目标元素就是最后一个元素了
+	if(parent.lastChild===targerEle){
+		alert(0);
+		parent.appendChild(newEle);//将新节点添加到parent的子节点列表的末尾上
+	}else{
+	//目标元素的 下一个元素的 前面插入=== 目标元素的后面插入新节点
+	parent.insertBefore(newEle,targerEle.nextSibling);
+	}
+}
+
+//克隆一个节点，如果是true就是把标签内的文本也克隆，如果false，只克隆标签
+<body>
+<div id="box">
+	<p>aaa</p>
+	<p>bbb</p>
+	<p>ccc</p>
+</div></html>
+
+var box = document.getElementById('box');
+var clone = removeWhiteNode(box).firstChild.cloneNode(false);
+box.appendChild(clone);//box末尾多了一对空白p标签
+
+//移除空白节点
+function removeWhiteNode (obj) {
+	for(var i=0;i<obj.childNodes.length;i++){
+		if(obj.childNodes[i].nodeType===3 && /^\s+$/.test(obj.childNodes[i].nodeValue)){
+			obj.childNodes[i].parentNode.removeChild(obj.childNodes[i]);
+		}
+	}
+	return obj;
+}
 
 
 	

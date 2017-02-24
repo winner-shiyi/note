@@ -3,20 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-</head>
-<body>
-
-	<div id="box">
-		<p>aaa</p>
-		<p>bbb</p>
-		<p>ccc</p>
-	</div>
 	<script>
 	window.onload=function(){
 		var box = document.getElementById('box');
-		console.log(removeWhiteNode(box).childNodes.length);//3
-		alert(removeWhiteNode(box).firstChild.nodeName);//p
-		//方法二：移除空白字符
+		var clone = removeWhiteNode(box).firstChild.cloneNode(false);
+		box.appendChild(clone);//box末尾多了一对空白p标签
+
+		//移除空白节点
 		function removeWhiteNode (obj) {
 			for(var i=0;i<obj.childNodes.length;i++){
 				if(obj.childNodes[i].nodeType===3 && /^\s+$/.test(obj.childNodes[i].nodeValue)){
@@ -27,4 +20,10 @@
 		}
 	}
 	</script>
-</html>
+</head>
+<body>
+<div id="box">
+	<p>aaa</p>
+	<p>bbb</p>
+	<p>ccc</p>
+</div></html>
