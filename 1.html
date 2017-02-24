@@ -6,94 +6,25 @@
 </head>
 <body>
 
-	<div id="oDiv">leeeee</div>
+	<div id="box">
+		<p>aaa</p>
+		<p>bbb</p>
+		<p>ccc</p>
+	</div>
 	<script>
-	//定时器
-	//超时调用 setTimeout  多少毫秒后会执行一次某段代码
-
-	//不推荐写法
-	setTimeout('alert(11)',2000);
-	//改1：
-	function box(){
-		alert(11);
-	}
-	setTimeout(box,2000);//第一个参数，可以直接存放一个函数名，不用调用（）  
-	//改2  推荐写法，封装性好
-	setTimeout(function(){
-		alert(11);
-	},2000);
-
-	//取消超时调用
-	var box=setTimeout(function(){//setTimeout有一个返回值，返回的是超时调用的id
-		alert(11);
-	},2000);
-	console.log(box);//1
-	clearTimeout(box);//取消超时调用
-
-	//间歇调用  setInterval 每隔多少毫秒重复调用某段代码
-	var box=setInterval(function(){
-		console.log(11);
-	},2000);
-	clearInterval(box);
-
-	//需求：要一个能设置5秒的定时器
-	//方法一：使用间歇调用模拟     较少使用
-	var num=0;
-	var max=5;
-	var box=setInterval(function(){
-		num++;
-		if(num==max){
-			//clearInterval(this);这种写法是无效的 
-			clearInterval(box);
-			alert('5秒钟到了！');
+	window.onload=function(){
+		var box = document.getElementById('box');
+		console.log(removeWhiteNode(box).childNodes.length);//3
+		alert(removeWhiteNode(box).firstChild.nodeName);//p
+		//方法二：移除空白字符
+		function removeWhiteNode (obj) {
+			for(var i=0;i<obj.childNodes.length;i++){
+				if(obj.childNodes[i].nodeType===3 && /^\s+$/.test(obj.childNodes[i].nodeValue)){
+					obj.childNodes[i].parentNode.removeChild(obj.childNodes[i]);
+				}
+			}
+			return obj;
 		}
-		console.log(num);//1,2,3,4,5,6,7…… 如果不清除 间歇调用的话，num会一直每隔1秒自增
-	},1000);
-	//方法二：使用超时调用模拟
-	var num=0;
-	var max=5;
-	function box(){
-		num++;
-		if(num==max){
-			alert('5秒钟到了！');
-		}else{
-			setTimeout(box,1000);
-		}
-		console.log(num);
 	}
-	setTimeout(box,1000);
-
-	//获取url中？号后面的键值对  要运行本地服务器，先把页面中的html加上 ?id=5&search=ok
-	function getArgs(){
-
-		var args=[];//最后要得到这样的格式[id:5,search:ok]
-		var str=location.search.substring(1).length?0:location.search.substring(1);
-		var arr=str.split('&');
-		var item=null;
-		var name=null;
-		var value=null;
-
-		for (var i = 0; i < arr.length; i++) {
-			item=arr[i].split('=');//[id,5]
-			name=item[0];
-			value=item[1];
-			args[name]=value;
-		};
-		return args;
-	}
-	console.log(getArgs()['id']);//5
-
-	//重新加载，无历史记录的打开窗口
-	window.location.reload(); //最有效的重新加载，但有可能是从缓存中加载
-	window.location.reload(true);//强制加载，从服务器源头重新加载
-	window.location.replace('https://www.baidu.com/');//不产生任何历史痕迹的跳转，就是没法退后
-
-	//alert(navigator.userAgent);//获取浏览器的版本，用户代理字符串
-	
-
-		
-
-
-	
 	</script>
 </html>

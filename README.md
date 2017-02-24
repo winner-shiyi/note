@@ -2241,6 +2241,57 @@ window.location.replace('https://www.baidu.com/');//不产生任何历史痕迹�
 2017-02-22:
 DOM
 
+2017-02-23:
+//获取节点的时候，怎么过滤空白节点，保持各个浏览器统一的方法
+	<div id="box">
+		<p>aaa</p>
+		<p>bbb</p>
+		<p>ccc</p>
+	</div>
+	window.onload=function(){
+		var box = document.getElementById('box');
+		alert(filterWhiteNode(box.childNodes).length);//3个，如果不用去空白字符的方法 则会打印出7
+		alert(removeWhiteNode(box.childNodes).length);//3
+
+		//方法一：忽略空白字符
+		function filterWhiteNode (nodes) {
+			var ret=[];
+			for(var i=0;i<nodes.length;i++){
+				if(nodes[i].nodeType===3 && /^\s+$/.test(nodes[i].nodeValue)){
+					continue;
+				}else{
+					ret.push(nodes[i]);
+				}
+			}
+			return ret;
+		}
+		//方法二：移除空白字符
+		function removeWhiteNode (nodes) {
+			var ret=[];
+			for(var i=0;i<nodes.length;i++){
+				if(nodes[i].nodeType===3 && /^\s+$/.test(nodes[i].nodeValue)){
+					nodes[i].parentNode.removeChild(nodes[i]);
+				}
+			}
+			return nodes;
+		}
+	}
+
+//如果使用firstChild，lastChild，previousSibling，nextSibling获取节点的过程中，怎么过滤掉空白节点
+
+var box = document.getElementById('box');
+console.log(removeWhiteNode(box).childNodes.length);//3
+alert(removeWhiteNode(box).firstChild.nodeName);//p
+//方法二：移除空白字符
+function removeWhiteNode (obj) {
+	for(var i=0;i<obj.childNodes.length;i++){
+		if(obj.childNodes[i].nodeType===3 && /^\s+$/.test(obj.childNodes[i].nodeValue)){
+			obj.childNodes[i].parentNode.removeChild(obj.childNodes[i]);
+		}
+	}
+	return obj;
+}
+
 
 
 
