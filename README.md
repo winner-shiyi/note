@@ -2351,14 +2351,40 @@ function removeWhiteNode (obj) {
 	
 innderHtml仅适合在body标签作用域之内的，比如想插入script标签在head标签是不生效的
 
+js的table中，只有table，tbody，th是没有自带的创建方法，其他的都有自带的创建方法
 
+alert(box.style.cssFloat);//非IE浏览器对关键字 保留字的 获取方法前面加css
+alert(box.style.styleFloat);//IE浏览器对关键字 保留字的 获取方法前面加style
+alert(box.style.cssFloat||box.style.styleFloat);//跨浏览器兼容 获取
 
+typeof box.style.cssFloat!='undefined'?box.style.cssFloat='right':box.style.styleFloat='right';//设置
 
+//获取html中获取到计算后的样式 或者说 内联在<style></style>标签中的样式的方法或者 style行内 或者link链接
+window.getComputedStyle(box,null);//谷歌 火狐  window下的方法
+window.getComputedStyle(box,':hover');//谷歌 火狐 获取伪类
+box.currentStyle属性 //ie浏览器中  某个对象上的属性
 
+//兼容浏览器写法
+//window.getComputedStyle(box,null) 在ie中会报错而不会返回null，报错||box.currentSt
+var style1 = window.getComputedStyle?window.getComputedStyle(box,null):null || box.currentStyle;
+alert(style1.fontSize);
 
+//如何禁用样式，可以禁用内联样式，后者link链接样式，但是不能禁用行内样式
+<style>
+#box{color:red;font-size:40px;}
+</style>
+<div id="box" class="aaa bbb ccc" style="background:blue;">sdgsdgsgd</div>
 
+var box = document.getElementById('box');
+var sheet = document.styleSheets[0];
+sheet.disabled = true;
 
-
+//cilentWidth 和 clientHeight
+//alert(typeof box.clientWidth);返回的数据类型是number，数值，不是字符串
+//如果设置了box的width为其他单位，如pt，返回出来的结果还是会转换为px像素
+//边框 和 外边距，不算在clientWidth的实际大小里面
+//内边距padding会增加大小，而滚动条会减少实际大小，返回结果不会把滚动条的大小算进去
+//没有设置css的width和height，没有设置内边距和滚动条的情况下，那么ie中会返回0
 
 
 

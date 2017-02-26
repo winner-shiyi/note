@@ -3,11 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<style>
+	#box{color:red;font-size:40px;}
+	</style>
 	<script>
 	window.onload=function(){
 		var box = document.getElementById('box');
-		alert(box.innerText);
+		//alert(typeof box.clientWidth);返回的数据类型是number，数值，不是字符串
+		//如果设置了box的width为其他单位，如pt，返回出来的结果还是会转换为px像素
+		//边框 和 外边距，不算在clientWidth的实际大小里面
+		//内边距padding会增加大小，而滚动条会减少实际大小，返回结果不会把滚动条的大小算进去
+		//没有设置css的width和height，没有设置内边距和滚动条的情况下，那么ie中会返回0
+
 	}
+
 
 
 
@@ -17,8 +26,5 @@
 	</script>
 </head>
 <body>
-<div id="box">dfgdhdf
-	<p>aaa</p>
-	<p>bbb</p>
-	<p>ccc</p>
-</div></html>
+<div id="box" class="aaa bbb ccc" style="background:blue;">sdgsdgsgd</div>
+</html>
