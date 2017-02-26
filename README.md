@@ -2342,9 +2342,14 @@ function removeWhiteNode (obj) {
 	return obj;
 }
 
+2017-02-26:
+得到<html>标签的元素节点方法：document.documentElement(比document.childNodes[1])更好
+得到<body>标签的元素节点方法：document.body(比document.getElementsByTagName('body')[0] 更好)
 
+获得有效子节点，可以自动过滤掉空白节点 children属性  box.children.length
+获取第一个，或者最后一个有效节点box.children[0],box.children[length-1]
 	
-
+innderHtml仅适合在body标签作用域之内的，比如想插入script标签在head标签是不生效的
 
 
 
