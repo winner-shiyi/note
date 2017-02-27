@@ -2384,8 +2384,21 @@ sheet.disabled = true;
 //如果设置了box的width为其他单位，如pt，返回出来的结果还是会转换为px像素
 //边框 和 外边距，不算在clientWidth的实际大小里面
 //内边距padding会增加大小，而滚动条会减少实际大小，返回结果不会把滚动条的大小算进去
-//没有设置css的width和height，没有设置内边距和滚动条的情况下，那么ie中会返回0
 
+
+
+2017-02-27:
+//怎么根据实际需求 动态加载js文件
+var flag=true;
+if(flag){
+	loadScript('aaaa.js');
+}
+function loadScript(url){
+	var script=document.createElement('script');
+	script.type='text/javascript';
+	script.src=url;
+	doucument.getElementsByTagName('head')[0].appendChild(script);
+}
 
 
 
