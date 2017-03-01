@@ -2400,6 +2400,24 @@ function loadScript(url){
 	doucument.getElementsByTagName('head')[0].appendChild(script);
 }
 
+2017-03-01:
+
+//函数在作为赋值给事件的时候，只要=函数名即可
+aaa.onclick=box;
+function box(){
+	alert(1);
+}
+
+//如果事件处理绑定的函数，浏览器会默认传递一个参数，event对象
+document.onclick=function(){
+	alert(arguments.length);
+}
+
+//获取事件对象
+aaa.onclick=function(evt){
+	var e = evt||window.event;
+	alert(e);
+}
 
 
 
