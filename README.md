@@ -1358,7 +1358,7 @@ console.log(box.toPrecision(8));
 		console.log(Math.floor(Math.random()*10 +1 ));//范围1-10（包含1和10） 公式：10+1-1=10
 	}
 	for(var i=0;i<10;i++){
-		console.log(Math.floor(Math.random()*10 +5 ));//范围5-14（包含5和14） 公式：10+5-1=15
+		console.log(Math.floor(Math.random()*10 +5 ));//范围5-14（包含5和14） 公式：x+5-1=14 x=10
 	}
 	for(var i=0;i<10;i++){
 		console.log(Math.floor(Math.random()*6 +5 ));//范围5-10（包含5和10） 公式：x+5-1=10 x=6
