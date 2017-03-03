@@ -1299,7 +1299,7 @@ console.log(box.toPrecision(8));
 	var pos=box.indexOf('l');
 	while(pos>-1){
 		boxarr.push(pos);
-		pos=box.indexOf('l',pos+1);
+		pos=box.indexOf('l',pos+1);   
 	}
 	console.log(boxarr);//[3,10]
 	
