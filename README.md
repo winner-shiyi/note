@@ -2421,16 +2421,281 @@ aaa.onclick=function(evt){
 
 2017-03-04: 妙味面试题
 
+1, typeof 返回的值类型有：object（对象或者null），function，string，number，boolean，undefined
 
+var f= function g(){
+    return 23;
+}
+typeof f;//"function"
+typeof g();//error
 
+2,
+(function(x){
+	delete x;//delete只能删除对象中的属性
+    return x;
+})(1);
+答案：1
 
+delete的了解：
+你可以使用 delete 操作符来删除一个隐式声明的全局变量,也就是没有使用 var 定义的全局变量.全局变量其实是global对象(window)的属性
+x = 42;        // 隐式声明的全局变量
+var y = 43;    // 显式声明的全局变量
+myobj = {
+  h: 4,    
+  k: 5
+}    
 
+// 隐式声明的全局变量可以被删除
+delete x;       // 返回 true 
 
+// 显式声明的全局变量不能被删除,该属性不可配置（not configurable）
+delete y;       // 返回 false 
 
+//内置对象的内置属性不能被删除
+delete Math.PI; // 返回 false
 
+//用户定义的属性可以被删除
+delete myobj.h; // 返回 true 
 
+// myobj 是全局对象的属性，而不是变量
+//因此可以被删除
+delete myobj;   // 返回 true
 
+function f() {
+  var z = 44;
 
+  // delete doesn't affect local variable names
+  delete z;     // returns false
+}
+你不能删除一个对象从原型继承而来的属性(不过你可以从原型上直接删掉它).
+function Foo(){}
+ Foo.prototype.bar = 42;
+ var foo = new Foo();
+
+ // 无效的操作
+ delete foo.bar;       
+   
+ // logs 42，继承的属性
+ console.log(foo.bar);       
+    
+ // 直接删除原型上的属性
+ delete Foo.prototype.bar;
+ 
+ // logs "undefined"，已经没有继承的属性
+ console.log(foo.bar);
+
+ delete删除数组元素
+
+ 当你删除一个数组元素时，数组的 length 属性并不会变小。例如，如果你删除了a[3], a[4]仍然是a[4], a[3]成为undefined. 即便你删除了最后一个元素也是如此 (delete a[a.length-1]).
+
+ 当用 delete 操作符删除一个数组元素时，被删除的元素已经完全不属于该数组。下面的例子中， trees[3] 被使用delete彻底删除。
+ var trees = ["redwood","bay","cedar","oak","maple"];
+ delete trees[3];
+ if (3 in trees) {
+   console.log(1);//这里不会被执行
+ }
+ undefined
+ trees.length;//5
+
+ 3,
+ var y=1,x=y=typeof x;
+ x;
+ 答案：从右边依次往左边运算，typeof 得到的都是字符串类型  "undefined"
+4，
+var foo ={
+	bar:function (){return this.baz;},
+	baz:1
+};
+(function(){
+	return typeof arguments[0]();
+})(foo.bar);
+答案："undefined"， return typeof this.baz,这里的this指向window，上没有baz属性
+var foo ={
+	bar:function (){return this.baz;},
+	baz:1
+};
+typeof (f=foo.bar)();
+答案："undefined"，原理同上
+5，
+var f=(function f(){return '1';},function g(){return '2';})();
+typeof f; 
+答案：string  
+var f=(function f(){return '1';},function g(){return 2;})();
+typeof f; 
+答案：number
+分组运算符 理解：
+var a=(1,2,3);
+alert(a);
+6,
+var x = 1;
+if (function f(){}) {
+  x += typeof f;
+}
+x;
+答案：'1undefined'。
+括号内的 function f(){} 函数声明不允许写在表达式当中的（比如if的判断条件中或者for循环的条件中），函数名字f会找不到，为undefined
+if(为假的只有：false、空字符串、0、null、undefined)，函数声明会被转换成 true 
+7，
+var x = [typeof x, typeof y][1];
+typeof typeof x;
+答案："string" 。无论前面var x是什么，最右边的typeof x，返回的是某种类型的字符串，字符串在typeof 肯定得到字符串
+8，
+(function f(){
+    function f(){ return 1; }
+    return f();
+    function f(){ return 2; }
+  })();
+答案：2。由于函数声明会提前预解析，先解析完两个f();后面的 f() 会覆盖前面的 f()，在执行，return f();
+10,
+function f(){ return f; }
+new f() instanceof f;
+答案：false。
+使用new操作符时，若调用的函数返回的是一个对象，则相当于这个new操作符一点用也没有。函数f返回的是自身，即一个对象，因此代码相当于
+function f(){ return f; }
+  f instanceof f;
+
+instanceof运算符用来判断一个构造函数的prototype属性所指向的对象是否存在另外一个要检测对象的原型链上，显然一个函数不可能是自己的实例。
+
+obj instanceof Object;//true 实例obj在不在Object构造函数中
+
+Person的原型在p的原型链中
+function Person(){};
+var p =new Person();
+console.log(p instanceof Person);//true
+
+构造函数 和 普通函数的区别：
+
+http://www.cnblogs.com/2010master/p/5904087.html
+
+2017-3-5:
+1,
+var a=10;
+function bbb(){
+	var a=20;
+	aaa();
+}
+function aaa () {
+	alert(a);
+}
+bbb();//10
+答案：10。外层的变量，内层可以找到（全局），而内层的变量，外层找不到（局部）
+无论function aaa放前还是放后，当执行function bbb的时候调用aaa();执行到 function aaa()中的alert(a),这个时候 函数bbb中的a是局部变量，外部没有办法访问，所以只能访问到使用var 定义的全局变量 var a=10;
+2,
+function aaa () {
+	var a = b = 10;
+}
+aaa();
+alert(b);
+alert(a);
+答案：10，报错。
+在函数aaa只有执行调用aaa()以后（如果没有调用执行的话，两个都会报错说未定义），才会得到b相当于是没有使用var声明的全局变量，而a使用var声明的局部变量
+3，
+var a=10;
+function aaa () {
+	alert(a);
+	var a=20;
+
+	//变量预解析原理，真实的执行步骤如下：
+	/*var a; 预解析 使用var 定义变量a 所以不会报错
+	alert(a);
+	a=20; 给变量a赋值*/ 
+}
+aaa();
+答案：undefined。
+变量查找的步骤：先就近原则去寻找有使用var定义的变量，当就近没有找到的话，就会查找外层，一层层向外查找。
+4，
+var a=10;
+function aaa () {
+	var a=20;
+	alert(a);
+}
+aaa();
+答案：20。
+根据变量查找步骤，先就近原则，在函数aaa中找到有使用var定义的变量var a=20，所以根本就不会去找外层的 var a=10;
+5，
+var a=10;
+function aaa () {
+	a=20;
+	alert(a);
+}
+aaa();
+答案：20。
+根据变量查找步骤，先就近原则，在函数aaa中没有找到有使用var定义的变量a，所以去找到外层的 var 定义的变量 var a=10;但是走到函数aaa中，变量a的赋值又被重新赋值20，所以弹出20
+6，
+var a=10;
+function aaa () {
+	alert(a);
+	a=20;
+}
+aaa();
+答案：10。
+根据变量查找步骤，先就近原则，在函数aaa中没有找到有使用var定义的变量a，所以去找到外层的 var a=10;走到函数aaa中，直接弹出在外层找到的 var a=10；
+7，
+var a=10;
+function aaa () {
+	bbb();
+	alert(a);
+	function bbb(){
+		var a=20;
+	}
+}
+aaa();
+//答案：10。
+函数bbb 虽然调用了，但是里面的a是局部变量，外面反问不到
+8，
+var a=10;
+function aaa (a) {
+	alert(a);
+	var a=20;
+}
+aaa(a);
+答案：10。
+当参数跟局部变量重名的时候，优先级是等同的。这里参数a 和 函数aaa中的局部变量a是同一个等级，但是参数a先赋值为10，alert(a)在局部变量a前面，所以弹出10
+9，
+var a=5;
+var b=a;
+b+=3;
+alert(a);
+答案：5。只是把a的值 传递过去给b a自己并不会改变
+var aa=[1,2,3];
+var bb=aa;
+bb.push(4);
+alert(aa);
+答案：[1,2,3,4]。aa是一个数组，传递过去给bb的是一个指针，其实aa和bb都是共同指向一个堆内存中
+基本类型赋值 赋的是一个值（在栈内存中）；
+引用类型赋值 赋的是一个引用（一个指针）（在栈内存中），共同指向一个（堆内存中）；
+10，
+var a=10;
+function aaa (a) {
+	a+=3;
+	alert(a);
+}
+aaa(a);
+alert(a);
+答案：13,10。
+函数aaa 中，a=a+3;参数和局部变量是等同的，，，这里面对a进行重新赋值，里面的a和函数外部的a 是不一样的，牢记基本类型的赋值 是传递的一个值 并不会对 基本类型本身起变化
+11，
+var a=[1,2,3];
+function aaa(a) {
+	a.push(4);
+	alert(a);
+}
+aaa(a);
+alert(a);
+答案：[1,2,3,4],[1,2,3,4]。
+虽然函数aaa 内部的参数a 和 外部的参数a是不一样的，一个是局部变量一个是全局变量
+但是因为他们传递是只是 一个指针，指向的是同一个 堆内存中，所以打印出来是一样的
+12，
+var a=[1,2,3];
+function aaa(a) {
+	a = [1,2,3,4];
+	alert(a);
+}
+aaa(a);
+alert(a);
+答案：[1,2,3,4],[1,2,3]。
+虽然函数aaa 内部的参数a 和 外部的参数a是不一样的，一个是局部变量一个是全局变量
+这时候函数内部的a 即使是一个新的 引用类型，自己在堆内存中有了新的实例，和函数外部的a 指向的并不是同一个堆内存
 
 
 
