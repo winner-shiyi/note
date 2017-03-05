@@ -1058,6 +1058,7 @@ alert(box.toLocaleString());
 	alert(pat.test(str));//true
 	alert(pat1.test(str1));//true
 	//RegExp.$1表示获取 正则模式 中 第一个分组 对应的 匹配字符串
+	//RegExp.$1是RegExp的一个属性,指的是与正则表达式匹配的第一个 子匹配(以括号为标志)字符串，以此类推，RegExp.$2，RegExp.$3，..RegExp.$99总共可以有99个匹配
 	var pat = /8(.*)8/;
 	var str = 'this is a 8google8';
 	str.match(pat);//先运行一下
@@ -2697,9 +2698,42 @@ alert(a);
 虽然函数aaa 内部的参数a 和 外部的参数a是不一样的，一个是局部变量一个是全局变量
 这时候函数内部的a 即使是一个新的 引用类型，自己在堆内存中有了新的实例，和函数外部的a 指向的并不是同一个堆内存
 
+字符串面试题：
+
+1，写一个字符串转成驼峰的方法
+//方法一
+var str = 'border-bottom-color';
+console.log(str.substring(1,3));//'or'
+function test(str){
+	var arr = str.split('-');
+	for (var i = 1; i < arr.length; i++) {
+		arr[i]=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);
+	};
+	return arr.join('');
+}
+console.log(test(str));//borderBottomColor
+//方法二
+var str = 'border-bottom-color';
+
+function test(str){
+	var re = /-(\w)/g;//子匹配(以括号为标志)字符串
+	return str.replace(re,function($0,$1){
+		//RegExp.$1是RegExp的一个属性,指的是与正则表达式匹配的第一个 子匹配(以括号为标志)字符串，以此类推，RegExp.$2，RegExp.$3，..RegExp.$99总共可以有99个匹配
+		return $1.toUpperCase();
+	});
+	
+}
+console.log(test(str));//borderBottomColor
+2，查找字符串中出现最多的字符和个数
+
+3，如何给字符串加千分符1
 
 
+秀吧项目全站重构
+搭建node + sass + gulp编译环境、sass项目文件目录规范、全站通用common样式制定
 
+秀吧首页改版
 
+秀吧webApp单页应用开发
 
 
