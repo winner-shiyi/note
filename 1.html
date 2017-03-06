@@ -8,23 +8,7 @@
 	#box{color:red;font-size:40px;width:200px;}
 	</style>
 	<script>
-	//方法一
 	
-	//方法二
-	var str = 'border-bottom-color';
-
-	function test(str){
-		var re = /-(\w)/g;//子匹配(以括号为标志)字符串
-		return str.replace(re,function($0,$1){
-			//RegExp.$1是RegExp的一个属性,指的是与正则表达式匹配的第一个 子匹配(以括号为标志)字符串，以此类推，RegExp.$2，RegExp.$3，..RegExp.$99总共可以有99个匹配
-			return $1.toUpperCase();
-		});
-		
-	}
-	console.log(test(str));//borderBottomColor
-
-	
-
 
 
 

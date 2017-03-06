@@ -2716,16 +2716,116 @@ console.log(test(str));//borderBottomColor
 var str = 'border-bottom-color';
 
 function test(str){
-	var re = /-(\w)/g;//子匹配(以括号为标志)字符串
+	var re = /-(\w)/g; //子匹配(以括号为标志)匹配到的字符串
 	return str.replace(re,function($0,$1){
 		//RegExp.$1是RegExp的一个属性,指的是与正则表达式匹配的第一个 子匹配(以括号为标志)字符串，以此类推，RegExp.$2，RegExp.$3，..RegExp.$99总共可以有99个匹配
+		//$0表示正则匹配到的整体
+		console.log('$0'+$0);
+		console.log('$1'+$1);
+		console.log($0.length);
 		return $1.toUpperCase();
 	});
 	
 }
 console.log(test(str));//borderBottomColor
 2，查找字符串中出现最多的字符和个数
+//方法一
+var str = 'saargdgdsssgymnsss';
+function test(str){
+	var obj = {};//{s:[],a:[]…}
+	var num = 0;
+	var val='';
 
-3，如何给字符串加千分符1
+	for (var i = 0; i < str.length; i++) {
+		if(!obj[str[i]]){
+			obj[str[i]] = [];
+		}
+		obj[str[i]].push(str[i]);
+	};
+
+	for(var name in obj){
+		if(num < obj[name].length){
+			num = obj[name].length;
+			val = obj[name][0];
+		}
+	}
+	return '出现最多的字符是'+val+';出现次数'+num;
+}
+console.log(test(str));
+
+//方法二
+var str = 'saargdgdsssgymnsss';
+function test(str){
+	var num = 0;
+	var val = '';
+	var arr = str.split('');
+	var str1 = arr.sort().join('');
+	console.log(str1);//aaddgggmnrsssssssy
+	var re = /(\w)\1+/g;
+	str1.replace(re,function($0,$1){
+		console.log('$0'+$0);
+		console.log('$1'+$1);
+		console.log($0.length);
+		if(num<$0.length){
+			num = $0.length;
+			val = $1;
+		}
+	});
+	return '出现最多的字符是'+val+';出现次数'+num;
+}
+console.log(test(str));
+3，如何给字符串加千分符
+//方法一
+var str = '35686611';//[35,686,611]
+
+function test(str){
+	var iNum = str.length%3;//0 1 2
+	var prev = '';
+	var arr = [];
+	var iNow = 0;
+	var tmp = '';
+
+	if(iNum!=0){
+		prev = str.substring(0,iNum);
+		arr.push(prev);
+	}
+	//余数等于0，就要3位一保存，3位一保存
+	str = str.substring(iNum);
+	for (var i = 0; i < str.length; i++) {
+		iNow++;
+		tmp += str[i];
+
+		if(iNow==3 && tmp){
+			arr.push(tmp);
+			iNow = 0;
+			tmp = '';
+		}
+	}
+	return arr.join(',');
+}
+console.log(test(str));//35,686,611
+//方法二
+//(?=)：前向声明
+//(?!)：反前向声明
+var str = 'abacad';
+var re = /ab/g;
+var re1 = /a(?=b)/g;//表示匹配：a后面必须是b的a，但是b又不被匹配到
+var re2 = /a(?!b)/g;//表示匹配：a后面必须是不是b的a，但是b又不被匹配到
+
+str0= str.replace(re,'*');
+str1 = str.replace(re1,'*');
+str2 = str.replace(re2,'*');
+
+console.log(str0);// *acad  b也被*号匹配
+console.log(str1);// *bacad b没有被*号匹配
+console.log(str2);// ab*c*d b没有被*号匹配
+
+var str = '35686611';//[35,686,611]
+
+function test (str) {
+	var re = /(?=(?!\b)(\d{3})+$)/g;
+	return str.replace(re,',');
+}
+console.log(test(str));//35,686,611
 
 
