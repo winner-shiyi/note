@@ -9,15 +9,6 @@
 1. [深入理解z-index属性](#docs/css/css-zindex)
 1. [css 高效命名准则](#docs/css/css-name)
 
-##css3笔记
-
-1. [字符串的扩展](#docs/es6_string)
-1. [正则的扩展](#docs/es6_regex)
-1. [数值的扩展](#docs/es6_number)
-1. [数组的扩展](#docs/es6_array)
-1. [函数的扩展](#docs/es6_function)
-1. [对象的扩展](#docs/es6_object)
-
 ##vue.js笔记
 
 1. [基础知识](#docs/vueJs/lib_vueJs_base)
@@ -37,6 +28,14 @@
 1. [slot插槽](#docs/vueJs/lib_vueJs_slot)
 1. [axios Ajax模块](#docs/vueJs/lib_vueJs_axios)
 
+##css3笔记
+
+1. [字符串的扩展](#docs/es6_string)
+1. [正则的扩展](#docs/es6_regex)
+1. [数值的扩展](#docs/es6_number)
+1. [数组的扩展](#docs/es6_array)
+1. [函数的扩展](#docs/es6_function)
+1. [对象的扩展](#docs/es6_object)
 
 ##javascript笔记
 
