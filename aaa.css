@@ -2828,4 +2828,14 @@ function test (str) {
 }
 console.log(test(str));//35,686,611
 
+//如果数字有小数的时候
+function commafy(num) {
+    return num && num
+        .toString()
+        .replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
+            return $1 + ",";
+        });
+}
+console.log(commafy(1234567.90)); //1,234,567.90
+
 
