@@ -1167,7 +1167,7 @@ function sum2(num1,num2){
 	return box.apply(this,arguments);//arguments 可以当数组传递
 }
 function sum3(num1,num2){
-	return box.call(this,num1，num2);//call(this表示window作用域，表示传递参数，表示传递参数)
+	return box.call(this,num1,num2);//call(this表示window作用域，表示传递参数，表示传递参数)
 }
 console.log(sum(10,10));//20
 console.log(sum2(10,10));//20
