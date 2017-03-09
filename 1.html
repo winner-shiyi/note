@@ -8,20 +8,35 @@
 	#box{color:red;font-size:40px;width:200px;}
 	</style>
 	<script>
-	
-	var str = '355686611.11';//[355,686,611.11]
-	function commafy(num) {
-		var re = /(\d)(?=(\d{3})+\.)/g;
-		if(num){
-			var strNum = num.toString()
-			return strNum.replace(re,function($0,$1){
-				console.log('$0:'+$0);
-				console.log('$1:'+$1);
-				return $1 + ",";
-			});
+	//方法一：if()else{}
+	//方法二：三目 return n<100? n :100;
+	//switch case
+	console.time();
+	var n = 50;
+	function show (n) {
+		switch(n<100){
+			case true:
+				return n;
+			break;
+			case false:
+				return 100;
+			break;
 		}
+		/*if(n<100){
+			return n;
+		}else{
+			return 100;
+		}*/
 	}
-	console.log(commafy(str)); //355,686,611.11
+	console.log(show(n));
+	console.timeEnd();
+	//方法四： Math.min()两个数中的最小数，，，打印出来时间，这个是底层方法，最快
+	console.time();
+	function show1(n){
+		return Math.min(n,100);
+	}
+	console.log(show1(n));
+	console.timeEnd();
 
 
 

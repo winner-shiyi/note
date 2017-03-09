@@ -2845,7 +2845,43 @@ console.log(commafy(str)); //355,686,611.11
 
 2017-03-08:
 一、a，b两个变量，不用第三个变量来切换两个变量值
+var a = 'hello';
+var b = 'weina';
+a = [a,b];
+b = a[0];
+a = a[1];
+
 二、有一个数n=5，不用for循环，怎么返回[1,2,3,4,5]这样一个数组
+var n = 5;
+//方法一：递归
+/*function show(n){
+	var arr = [];
+	return (function(){
+		arr.unshift(n);
+		n--;
+		if(n!=0){
+			arguments.callee();//调用自己，自己指的是 这个自我执行的函数
+		}
+		return arr;
+		//console.log(arr);
+	})();
+}*/
+
+//方法二：正则replace（）中第二个参数是一个回调函数，匹配成功几次，回调函数就会调用几次
+function show(n){
+	var arr = [];
+	var arr2 = [];
+	arr.length = n+1;
+	console.log(arr);//[,,,,,]
+	var str = arr.join('a');
+	console.log(str);//'aaaaa'
+	str.replace(/a/g,function(){
+		arr2.unshift(n--);
+	});
+	return arr2;
+}
+console.log(show(n));
+
 三、一个数a，当n小于100就返回n，否则就返回100
 
 
