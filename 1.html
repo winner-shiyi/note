@@ -9,8 +9,19 @@
 	</style>
 	<script>
 	
-
-
+	var str = '355686611.11';//[355,686,611.11]
+	function commafy(num) {
+		var re = /(\d)(?=(\d{3})+\.)/g;
+		if(num){
+			var strNum = num.toString()
+			return strNum.replace(re,function($0,$1){
+				console.log('$0:'+$0);
+				console.log('$1:'+$1);
+				return $1 + ",";
+			});
+		}
+	}
+	console.log(commafy(str)); //355,686,611.11
 
 
 
