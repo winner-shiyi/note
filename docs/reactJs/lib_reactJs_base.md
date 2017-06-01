@@ -21,7 +21,7 @@
 ```
 **注意点：**
 
-1. <script> 标签的type属性为 ==text/babel==，因为这是React独有的JSX语法，凡是使用JSX的地方，都有加上==type="text/babel"==。
+1. &lt;script&gt;标签的type属性为 ==text/babel==，因为这是React独有的JSX语法，凡是使用JSX的地方，都有加上==type="text/babel"==。
 2. react.js 是 React 的核心库，react-dom.js 是提供与 DOM 相关的功能，Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，它们三个必须先加载。
 
 ## ReactDOM.render()
@@ -48,7 +48,7 @@ ReactDOM.render(
 ```
 2、React中自定义的组件名首字母要大写，在JSX中出现的HTML标签名统一小写
 
-3、声明在JSX中的标签属性中的class必须用==className==代替，<label>标签的属性for必须用==htmlFor==代替。因为class和for是js最新语法中的保留字，避免编译器误解。
+3、声明在JSX中的标签属性中的class必须用==className==代替，&lt;label&gt;标签的属性for必须用==htmlFor==代替。因为class和for是js最新语法中的保留字，避免编译器误解。
 ```
 <div className="aaa"...>
 
@@ -84,7 +84,7 @@ ReactDOM.render(
 
 ## JSX语法
 
-JSX基本语法规则：遇到 HTML 标签（以 ==<== 开头），就用 HTML 规则解析；遇到代码块（以 =={== 开头），就用 JavaScript 规则解析。
+JSX基本语法规则：遇到 HTML 标签（以 ==&lt;== 开头），就用 HTML 规则解析；遇到代码块（以 =={== 开头），就用 JavaScript 规则解析。
 
 使用JSX语法的代码：
 ```
