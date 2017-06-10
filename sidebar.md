@@ -38,9 +38,9 @@
 1. [实例属性](#docs/reactJs/lib_reactJs_objProp)
 1. [实例事件](#docs/reactJs/lib_reactJs_objEvent)
 1. [实例生命周期](#docs/reactJs/lib_reactJs_lifeCycle)
-1. [组件通信几种方法](#docs/vueJs/lib_vueJs_message)
-1. [slot插槽](#docs/vueJs/lib_vueJs_slot)
-1. [axios Ajax模块](#docs/vueJs/lib_vueJs_axios)
+1. [组件通信几种方法](#docs/reactJs/lib_reactJs_message)
+1. [slot插槽](#docs/reactJs/lib_reactJs_slot)
+1. [axios Ajax模块](#docs/reactJs/lib_reactJs_axios)
 
 ##javascript笔记
 
