@@ -27,8 +27,8 @@
 
 1. [基础知识](#docs/reactJs/lib_reactJs_base)
 1. [prop简介](#docs/reactJs/lib_reactJs_props)
-1. [directive自定义指令](#docs/vueJs/lib_vueJs_directive)
-1. [filter自定义过滤器](#docs/vueJs/lib_vueJs_filter)
+1. [directive自定义指令](#docs/reactJs/lib_reactJs_directive)
+1. [filter自定义过滤器](#docs/reactJs/lib_reactJs_filter)
 1. [mixins混合合并](#docs/vueJs/lib_vueJs_mixins)
 1. [插件使用与开发](#docs/vueJs/lib_vueJs_plugin)
 1. [路由](#docs/vueJs/lib_vueJs_router)
