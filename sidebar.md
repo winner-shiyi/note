@@ -27,8 +27,8 @@
 
 1. [基础知识](#docs/reactJs/lib_reactJs_base)
 1. [props](#docs/reactJs/lib_reactJs_props)
-1. [state](#docs/reactJs/lib_reactJs_directive)
-1. [组件](#docs/reactJs/lib_reactJs_filter)
+1. [state](#docs/reactJs/lib_reactJs_state)
+1. [组件](#docs/reactJs/lib_reactJs_component)
 1. [组件生命周期](#docs/reactJs/lib_reactJs_mixins)
 1. [表单](#docs/reactJs/lib_reactJs_plugin)
 1. [路由](#docs/reactJs/lib_reactJs_router)
