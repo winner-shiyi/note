@@ -29,18 +29,19 @@
 1. [props](#docs/reactJs/lib_reactJs_props)
 1. [state](#docs/reactJs/lib_reactJs_state)
 1. [组件](#docs/reactJs/lib_reactJs_component)
-1. [组件生命周期](#docs/reactJs/lib_reactJs_mixins)
-1. [表单](#docs/reactJs/lib_reactJs_plugin)
+1. [生命周期](#docs/reactJs/lib_reactJs_lifeCycle)
+1. [this绑定](#docs/reactJs/lib_reactJs_this)
+1. [表单](#docs/reactJs/lib_reactJs_form)
+1. [Ajax模块](#docs/reactJs/lib_reactJs_ajax)
 1. [路由](#docs/reactJs/lib_reactJs_router)
 1. [顶级API](#docs/reactJs/lib_reactJs_glbObj)
 1. [Redux](#docs/reactJs/lib_reactJs_response)
-1. [实例方法](#docs/reactJs/lib_reactJs_objFn)
 1. [实例属性](#docs/reactJs/lib_reactJs_objProp)
 1. [实例事件](#docs/reactJs/lib_reactJs_objEvent)
 1. [实例生命周期](#docs/reactJs/lib_reactJs_lifeCycle)
 1. [组件通信几种方法](#docs/reactJs/lib_reactJs_message)
 1. [slot插槽](#docs/reactJs/lib_reactJs_slot)
-1. [axios Ajax模块](#docs/reactJs/lib_reactJs_axios)
+
 
 ##javascript笔记
 

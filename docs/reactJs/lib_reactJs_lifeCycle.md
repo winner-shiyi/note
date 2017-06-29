@@ -1,64 +1,77 @@
-# 实例生命周期
-以下几点在服务器端渲染期间不会被调用。
+## 生命周期
+
+React组件的生命周期分成三个状态：
+
+```javascript
+1. Mounting：已插入真实 DOM
+
+2. Updating：正在被重新渲染
+
+3. Unmounting：已移除真实 DOM
+```
+
+React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。
+
+```javascript
+1. componentWillMount()
+
+2. componentDidMount()
+
+3. componentWillUpdate()
+
+4. componentDidUpdate()
+
+5. componentWillUnmount()
+```
+
+此外，React 还提供两种特殊状态的处理函数:
+
+```javascript
+1. componentWillReceiveProps()：已加载组件收到新的参数时调用
+
+2. shouldComponentUpdate()：组件判断是否重新渲染时调用
+```
+
+下面来看一个实例：
+```javascript
+var Hello = React.createClass({
+    getInitialState(){
+      return {opacity:1}
+    },
+    componentDidMount(){
+      setInterval(()=>{
+        var opacity = this.state.opacity;
+        opacity-=0.05;
+        if(opacity<0.1){
+          opacity = 1;
+        }
+        this.setState({
+          opacity:opacity
+        })
+      },100)
+    },
+    render(){
+      return (
+        <p style={{opacity:this.state.opacity}}>hello {this.props.name}</p>
+      )
+    }
+});
+
+ReactDOM.render(
+<Hello name="world"/>,
+document.getElementById('example')
+);
+```
+在hello组件加载以后，通过 componentDidMount 方法设置一个定时器，每隔100毫秒，就重新设置组件的透明度，从而引发重新渲染。
+另外，组件的style属性的设置方式也值得注意，不能写成：
+```javascript
+style="opacity:{this.state.opacity};"
+```
+因为 React 组件样式是一个对象，所以第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象。而要写成：
+```javascript
+style={{opacity: this.state.opacity}}
+```
+
+更多具体用法参考[官方文档](https://facebook.github.io/react/docs/react-component.html)。
 
 
-## beforeCreate
-类型：`Function`<br>
-描述：`在实例化之后，数据观测(data observer)和event/watcher事件配置之前被调用`。
-
-
-
-## created
-类型：`Function`<br>
-描述：`实例已经创建完成之后被调用`，在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，watch/event事件回调，然而，挂载阶段还没开始，$el 属性没钱不可见。
-
-
-
-## beforeMount
-类型：`Function`<br>
-描述：`在挂载开始之前被调用：相关的render函数首次被掉用`。
-
-
-
-## mounted
-类型：`Function`<br>
-描述：`el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子`，如果root实例挂载了一个文档元素，当mounted被调用时 vm.$el也在文档内。
-
-
-## beforeUpdate
-类型：`Function`<br>
-描述：`数据更新时调用，发生再虚拟DOM重新渲染和打补丁之前`，你可以再这个钩子中进一步地更改状态，这不会触发放假的重渲染过程。
-
-
-## updated
-类型：`Function`<br>
-描述：`由于数据更改导致的虚拟DOM重新渲染和打补丁，在这之后会调用该钩子`。
-
-当这个钩子被调用时，组件DOM已经更新，可以执行依赖于DOM的操作。
-
-
-## activated
-类型：`Function`<br>
-描述：`keep-alive组件激活时调用`。
-
-
-## deactivated
-类型：`Function`<br>
-描述：`keep-alive组件停用时调用`。<br>
-
-
-## beforeDestroy
-类型：`Function`<br>
-描述：`实例销毁之前调用`,在这一步，实例仍然完全可用。
-
-
-## destroyed
-类型：`Function`<br>
-描述：Vue实例销毁后调用，调用后Vue实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
-
-
-[![生命周期流程图](docs/images/lifecycle.png)](docs/images/lifecycle.png)
-
-
-## 推荐博客
-> * [Vue.js 生命周期和route的生命周期讲解](http://www.jianshu.com/p/e9f884b6ba6c)
