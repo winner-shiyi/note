@@ -34,7 +34,7 @@ this.props.children 的值有三种可能：
 3、如果有多个子节点，数据类型就是 array 。
 
 所以，处理 this.props.children 的时候要小心。
-React 提供一个工具方法 React.Children 来处理 this.props.children 。我们可以用 React.Children.map 来遍历子节点，而不用担心 this.props.children 的数据类型是 undefined 还是 object。更多的 React.Children 的方法，请参考[官方文档](https://facebook.github.io/react/docs/react-api.html)。
+React 提供一个工具方法 React.Children 来处理 this.props.children 。我们可以用 `React.Children.map` 来遍历子节点，而不用担心 this.props.children 的数据类型是 undefined 还是 object。更多的 React.Children 的方法，请参考[官方文档](https://facebook.github.io/react/docs/react-api.html)。
 
 ## PropTypes
 

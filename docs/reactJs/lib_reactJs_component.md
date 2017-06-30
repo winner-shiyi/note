@@ -13,13 +13,14 @@ ReactDOM.render(
   <HelloMessage name="John" />,
   document.getElementById('example')
 );
+// hello John
 ```
 
 模板插入 &lt;HelloMessage /&gt; 时，会自动生成 HelloMessage 的一个实例。所有组件类都必须有自己的 render 方法，用于渲染输出组件。
 
 组件的用法与原生的 HTML 标签完全一致，可以任意加入属性，比如 &lt;HelloMessage name="John"&gt; ，就是 HelloMessage 组件加入一个 name 属性，值为 John。
 
-组件的属性可以在组件类的 this.props 对象上获取，比如 name 属性就可以通过 this.props.name 读取。最后输出：hello John
+组件的属性可以在组件类的 this.props 对象上获取，比如 name 属性就可以通过 this.props.name 读取。
 
 **注意点**
 
