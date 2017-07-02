@@ -3,11 +3,11 @@
 React组件的生命周期分成三个状态：
 
 ```javascript
-1. Mounting：已插入真实 DOM
+1. Mounting：正在挂接虚拟DOM到真实DOM
 
 2. Updating：正在被重新渲染
 
-3. Unmounting：已移除真实 DOM
+3. Unmounting：正在将虚拟DOM移出真实DOM
 ```
 
 React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。
@@ -15,13 +15,13 @@ React 为每个状态都提供了两种处理函数，will 函数在进入状态
 ```javascript
 1. componentWillMount()
 
-2. componentDidMount()
+2. componentDidMount() //进行state数据的填充，ajax请求，集成jquery 
 
 3. componentWillUpdate()
 
 4. componentDidUpdate()
 
-5. componentWillUnmount()
+5. componentWillUnmount() //执行清理，比如无效的定时器，清除在DidMount中创建的DOM元素
 ```
 
 此外，React 还提供两种特殊状态的处理函数:
