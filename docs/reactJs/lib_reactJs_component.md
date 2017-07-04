@@ -1,5 +1,11 @@
 ## 组件
 
+React组件可以看作是一个带有props属性集合 和 state状态集合并且构造出一个虚拟DOM结构的对象。其核心是render函数。
+
+rener函数主要职责是根据state状态，结合props属性，构建一个虚拟DOM。React的本质特点也体现在这里：render只需要考虑根据状态生成对应的虚拟DOM，其他工作由React自动完成。
+
+所有的变化均由状态的变更引发，状态的变更要通过调用组件实例的setState函数完成。
+
 React.createClass 方法就用于生成一个组件类。
 
 ```javascript
