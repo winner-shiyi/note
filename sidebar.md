@@ -35,7 +35,7 @@
 1. [Ajax模块](#docs/reactJs/lib_reactJs_ajax)
 1. [路由](#docs/reactJs/lib_reactJs_router)
 1. [顶级API](#docs/reactJs/lib_reactJs_glbObj)
-1. [Redux](#docs/reactJs/lib_reactJs_response)
+1. [Redux](#docs/reactJs/lib_reactJs_redux)
 1. [实例属性](#docs/reactJs/lib_reactJs_objProp)
 1. [实例事件](#docs/reactJs/lib_reactJs_objEvent)
 1. [实例生命周期](#docs/reactJs/lib_reactJs_lifeCycle)
